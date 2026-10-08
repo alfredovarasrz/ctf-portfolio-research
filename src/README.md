@@ -16,7 +16,6 @@ Experiment folders link to the principal files for their methods. Common calcula
 | [comparison_models.py](comparison_models.py) | Original stock XGBoost forecasts, Barra-style risk estimation and benchmark portfolio calculations. |
 | [evaluate_baseline.py](evaluate_baseline.py) | Performance calculations for weights and subsequent returns. |
 | [expanding_forecasts.py](expanding_forecasts.py) | All-history forecast fitting and hyperbolic observation-weight selection. |
-| [exploratory_combination_paths.py](exploratory_combination_paths.py) | The two fixed combined forecasts and their C02/R08 Markowitz allocation. |
 | [extended_allocations.py](extended_allocations.py) | Industry-portfolio construction and combination, plus the fixed market-proxy timing multiplier. |
 | [extended_forecasts.py](extended_forecasts.py) | Predictor PCA, rolling age-weighted forecasts and three-month-block bagging. |
 | [extended_risk.py](extended_risk.py) | Historical covariance weighting and shared risk transformations. |
@@ -37,6 +36,10 @@ Experiment folders link to the principal files for their methods. Common calcula
 | [tuned_covariance_pca.py](tuned_covariance_pca.py) | Historical selection of the retained factor-covariance eigenvalue mass. |
 | [tuned_factor_forecast_paths.py](tuned_factor_forecast_paths.py) | P07/P08 factor forecasts based on the tuned R01 daily factor stream. |
 | [tuned_risk_decay.py](tuned_risk_decay.py) | Historical selection of hyperbolic correlation or variance decay within a rolling window. |
+| [risk_allocations.py](risk_allocations.py) | Benchmark allocation with native and original-covariance scaling for changed risk models. |
+| [combined_allocations.py](combined_allocations.py) | Combined forecasts, covariance and the historically selected allocation penalty. |
+| [wide_allocation.py](wide_allocation.py) | Broad allocation-penalty search and completed scalar payoff banks. |
+| [market_cap_proxy.py](market_cap_proxy.py) | Preceding raw market capitalization and observed daily stock excess returns. |
 
 ## Dependencies and execution
 
@@ -44,8 +47,8 @@ All local Python imports resolve within this folder. Monthly filtering uses Pola
 
 The source retains historical model tuning and the input, date and array checks needed by its calculations. Optional generated artifacts carry input/settings identities so a resumed run cannot silently use another model's cache. These local research outputs are created by the public code; they are not files that must be obtained from the private research archive.
 
-The inherited expanding forecasts and factor XGBoost read original annual tree settings from a locally generated benchmark `forecast_fits.json`. They do not read the private diagnostic proofs or result-acceptance records. The annual training-date and candidate-selection checks remain.
+The inherited expanding forecasts and factor XGBoost generate the original annual tree settings within their own run and read them from the newly generated benchmark `forecast_fits.json`. They do not read the private diagnostic proofs or result-acceptance records. The annual training-date and candidate-selection checks remain.
 
-Eight experiment entry points are available: P01, P02, T03, T04, T07, H01, V01 and P08_C021_R08V1. See [the reproduction instructions](../README.md#reproduction). Other experiment entry points remain to be packaged; completing the shared import graph does not make every experiment executable end to end. The saved results were not regenerated during this cleanup. Per-run source-version reconciliation for the remaining entry points is still pending.
+All 46 experiment entry points are available. See [the reproduction instructions](../README.md#reproduction). Each has passed bounded execution; the 38 new entry points also passed removal of future inputs and uncompleted labels. The numerical methods and settings are preserved. Saved full-period results were not regenerated during this cleanup.
 
 Correctness tests, numerical verifiers, fixtures, schedulers and monitoring helpers are excluded from the public tree. The selected strategy's [self-contained contest model](../submission/model.py) has its own pinned requirements and does not import this folder.

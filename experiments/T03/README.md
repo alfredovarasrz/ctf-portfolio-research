@@ -38,7 +38,7 @@ Historical model-parameter validation remains part of the scientific implementat
 - Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.
 - Monotone ranking leaves decile membership unchanged under the preserved tie policy; decile outputs are invariance controls. Scores are not returns, so return-MSE is not meaningful for them.
 
-Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Entry-point packaging and per-run source-version reconciliation remain pending where not identified below.
+Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. The local entry point is packaged below. Saved full-period results remain unchanged.
 
 ## Running this experiment
 
@@ -49,3 +49,7 @@ python experiments/T03/code/run.py --data /path/to/ctf-tables --output /path/to/
 ```
 
 The data folder must contain `ctff_chars.parquet`, `ctff_features.parquet` and `ctff_daily_ret.parquet`. Install [the research requirements](../../requirements-research.txt) first. The script fits from the supplied tables, constructs monthly weights, and then evaluates them using subsequent returns. It does not require old private forecasts, caches or verification files. Use a separate output directory for each experiment. Generated outputs are not automatically published.
+
+## Complete shared dependencies
+
+[artifact_utils.py](../../src/artifact_utils.py), [baseline.py](../../src/baseline.py), [comparison_models.py](../../src/comparison_models.py), [evaluate_baseline.py](../../src/evaluate_baseline.py), [experiment_io.py](../../src/experiment_io.py), [market_cap_proxy.py](../../src/market_cap_proxy.py), [market_cap_value_digest.py](../../src/market_cap_value_digest.py), [research_forecasts.py](../../src/research_forecasts.py), [research_risk.py](../../src/research_risk.py).

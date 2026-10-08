@@ -27,4 +27,15 @@ These are the principal implementation files currently staged for this experimen
 
 Historical model-parameter validation remains part of the scientific implementation. Separate correctness checks, numerical verifiers and operational schedulers are excluded.
 
-Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Entry-point packaging and per-run source-version reconciliation remain pending where not identified below.
+Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. The local entry point is packaged below. Saved full-period results remain unchanged.
+
+## Run this experiment
+
+The [run script](code/run.py) estimates this experiment from the three supplied
+tables and then evaluates its monthly weights. [Execution instructions](code/README.md)
+describe its inputs and outputs. Use a new output folder for a cold run.
+The original results above are preserved; new outputs go to the requested folder.
+
+## Complete shared dependencies
+
+[artifact_utils.py](../../src/artifact_utils.py), [baseline.py](../../src/baseline.py), [comparison_models.py](../../src/comparison_models.py), [evaluate_baseline.py](../../src/evaluate_baseline.py), [experiment_io.py](../../src/experiment_io.py), [extended_risk.py](../../src/extended_risk.py), [extended_risk_rebuilds.py](../../src/extended_risk_rebuilds.py), [market_cap_proxy.py](../../src/market_cap_proxy.py), [market_cap_value_digest.py](../../src/market_cap_value_digest.py), [research_forecasts.py](../../src/research_forecasts.py), [research_risk.py](../../src/research_risk.py), [ridge_path.py](../../src/ridge_path.py), [risk_allocations.py](../../src/risk_allocations.py), [risk_penalty_paths.py](../../src/risk_penalty_paths.py), [risk_penalty_replay.py](../../src/risk_penalty_replay.py), [tuned_factor_forecast_paths.py](../../src/tuned_factor_forecast_paths.py).

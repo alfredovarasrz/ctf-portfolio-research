@@ -36,4 +36,15 @@ Historical model-parameter validation remains part of the scientific implementat
 - This completed cell is rolling-window weighting, not expanding-plus-weighting.
 - Saved execution_seconds includes human process pauses and should not be presented as CPU time or uninterrupted runtime.
 
-Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Entry-point packaging and per-run source-version reconciliation remain pending where not identified below.
+Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. The local entry point is packaged below. Saved full-period results remain unchanged.
+
+## Run this experiment
+
+The [run script](code/run.py) estimates this experiment from the three supplied
+tables and then evaluates its monthly weights. [Execution instructions](code/README.md)
+describe its inputs and outputs. Use a new output folder for a cold run.
+The original results above are preserved; new outputs go to the requested folder.
+
+## Complete shared dependencies
+
+[artifact_utils.py](../../src/artifact_utils.py), [baseline.py](../../src/baseline.py), [comparison_models.py](../../src/comparison_models.py), [evaluate_baseline.py](../../src/evaluate_baseline.py), [experiment_io.py](../../src/experiment_io.py), [extended_forecasts.py](../../src/extended_forecasts.py), [market_cap_proxy.py](../../src/market_cap_proxy.py), [market_cap_value_digest.py](../../src/market_cap_value_digest.py), [research_forecasts.py](../../src/research_forecasts.py), [research_risk.py](../../src/research_risk.py).

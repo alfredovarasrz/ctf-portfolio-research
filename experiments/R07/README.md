@@ -34,4 +34,15 @@ Historical model-parameter validation remains part of the scientific implementat
 - Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.
 - Expansion changes F history only. Exponential weighting still gives old history very small positive weights.
 
-Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Entry-point packaging and per-run source-version reconciliation remain pending where not identified below.
+Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. The local entry point is packaged below. Saved full-period results remain unchanged.
+
+## Run this experiment
+
+The [run script](code/run.py) estimates this experiment from the three supplied
+tables and then evaluates its monthly weights. [Execution instructions](code/README.md)
+describe its inputs and outputs. Use a new output folder for a cold run.
+The original results above are preserved; new outputs go to the requested folder.
+
+## Complete shared dependencies
+
+[artifact_utils.py](../../src/artifact_utils.py), [baseline.py](../../src/baseline.py), [capped_calendar_validation.py](../../src/capped_calendar_validation.py), [comparison_models.py](../../src/comparison_models.py), [evaluate_baseline.py](../../src/evaluate_baseline.py), [experiment_io.py](../../src/experiment_io.py), [extended_risk.py](../../src/extended_risk.py), [market_cap_proxy.py](../../src/market_cap_proxy.py), [market_cap_value_digest.py](../../src/market_cap_value_digest.py), [research_forecasts.py](../../src/research_forecasts.py), [research_risk.py](../../src/research_risk.py), [risk_allocations.py](../../src/risk_allocations.py), [risk_history_regimes.py](../../src/risk_history_regimes.py), [tuned_risk_decay.py](../../src/tuned_risk_decay.py).

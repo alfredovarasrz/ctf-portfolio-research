@@ -6,7 +6,7 @@
 
 This repository contains research for the Common Task Framework portfolio-model competition hosted on the Global Factor Data (JKP Factors) website. The competition runs submitted models on a common stock dataset and evaluates the portfolio weights they produce. Our objective is to study how return forecasting, risk estimation and portfolio construction affect historical performance, then provide a reproducible implementation and methodology paper for the selected strategy.
 
-This repository includes the self-contained final model, final PDF write-up, saved results and shared scientific code with complete local dependencies. Eight experiment folders have runnable local entry points. The remaining entry points are being assembled.
+This repository includes the self-contained final model, final PDF write-up, saved results and shared scientific code with complete local dependencies. All 46 experiment folders have runnable local entry points and execution instructions.
 
 The research follows the competition host's supplied R implementations of Minimum Variance, Factor ML and Markowitz ML, translated into Python. Ridge Markowitz adapts the supplied Markowitz allocation to stock-level Ridge forecasts. Only the permitted stock-characteristic, feature-list and daily-return tables enter the models. Historical performance is evaluated from January 1990 through December 2023, with earlier available data used for estimation. The input `ctff_test` flags determine the evaluation observations; the final model must not assume that every future dataset has the same dates.
 
@@ -45,18 +45,16 @@ The selected strategy is **P08-only + C02 regular + R08 expanding variance**, sa
 
 | Path | What it contains |
 | --- | --- |
-| [experiments/](results/README.md) | One folder per experiment, containing its README and compact `results.json`; available entry points are in each experiment's `code/` subfolder; the reproduction section lists their status |
+| [experiments/](experiments/) | One folder per experiment, containing its README, saved `results.json` and a runnable `code/` subfolder |
 | [src/](src/README.md) | Shared Python source code for model calculations, historical parameter selection and performance measurement |
 | [results/](results/README.md) | Consolidated saved results, including [the portfolio CSV](results/portfolio_results.csv) and experiment JSON |
 | [submission/](submission/README.md) | The selected strategy's self-contained [model.py](submission/model.py), pinned dependencies and verified [final portfolio weights CSV](submission/weights.csv) |
 
 The final [PDF write-up](submission/Alfredo%20Vara%20-%20PS3.pdf), **Factor Forecasting and Regularized Portfolio Allocation**, is available in `submission/` alongside the model, dependencies and final portfolio weights. The large internal research reports are excluded. Robustness notes are summarized below, so there is no separate `docs` folder.
 
-Each experiment's runnable code will use the relevant common functions in `src/`.
-The selected combined strategy already has its own experiment folder,
-[P08_C021_R08V1](experiments/P08_C021_R08V1/README.md), with a
-[code subfolder](experiments/P08_C021_R08V1/code/README.md) reserved for its complete
-research execution entry point. That code is still being packaged.
+Each experiment's run script uses the relevant common functions in `src/`.
+The selected combined strategy's [research entry point](experiments/P08_C021_R08V1/code/run.py)
+calls the self-contained submission model and evaluates the resulting weights locally.
 
 The consolidated experiment JSON collects the individual experiment result
 records in one file. The CSV provides their portfolio-level metrics in a table,
@@ -64,9 +62,9 @@ so users can compare results without opening every experiment folder.
 
 ### What shared source code means
 
-`src` is short for source code. It contains 31 Python files: the 29 scientific modules and two small input/output utilities. For example, `baseline.py` prepares stock predictors and fits the original Ridge model; `comparison_models.py` supplies the original XGBoost and Barra-style risk calculations; and `factor_forecast_paths.py` implements the P07/P08 factor forecasts. These are code files, not fitted models, saved forecasts or additional experiments.
+`src` is short for source code. It contains 34 Python files for scientific calculations and local input/output. For example, `baseline.py` prepares stock predictors and fits the original Ridge model; `comparison_models.py` supplies the original XGBoost and Barra-style risk calculations; and `factor_forecast_paths.py` implements the P07/P08 factor forecasts. These are code files, not fitted models, saved forecasts or additional experiments.
 
-Several experiments use the same underlying calculations. Keeping those functions in one shared place avoids maintaining a different copy in every experiment folder. Each experiment README links to its principal source files and explains their roles. The [source README](src/README.md) gives a complete file guide. The shared files no longer import private execution code. Each available run script calls these functions directly; the remaining experiment entry points are still being packaged.
+Several experiments use the same underlying calculations. Keeping those functions in one shared place avoids maintaining a different copy in every experiment folder. Each experiment README links to its principal source files and explains their roles. The [source README](src/README.md) gives a complete file guide. The shared files no longer import private execution code. Each experiment has a short run script that calls these functions directly.
 
 ### The submission code
 
@@ -82,18 +80,16 @@ python -m pip install -r requirements-research.txt
 
 Research imports require NumPy, Pandas, Polars, PyArrow, SciPy, threadpoolctl and XGBoost, plus their pinned supporting dependencies. Ibis and DuckDB are no longer needed by the public code. Obtain the three permitted CTF tables through the data-access instructions above; raw data are not included in this repository.
 
-The following entry points are packaged:
+All 46 experiment folders contain a run script and execution instructions.
 
-| Experiment | Run script | What it runs |
-| --- | --- | --- |
-| Original benchmark comparison (P01) | [run.py](experiments/P01/code/run.py) | Ridge/XGBoost deciles and Markowitz portfolios, plus Minimum Variance |
-| Equal forecast average (P02) | [run.py](experiments/P02/code/run.py) | A 50/50 Ridge/XGBoost forecast, with decile and Markowitz allocations |
-| Ranked forecast scores (T03) | [run.py](experiments/T03/code/run.py) | Original forecasts converted into percentile scores before allocation |
-| Country median predictors (T04) | [run.py](experiments/T04/code/run.py) | Both forecast models with country/month median filling |
-| Industry median predictors (T07) | [run.py](experiments/T07/code/run.py) | Both forecast models with industry-aware median filling |
-| Dense Ridge search (H01) | [run.py](experiments/H01/code/run.py) | Historically tuned dense stock Ridge forecasts |
-| Forward-only comparison (V01) | [run.py](experiments/V01/code/run.py) | Both forecast models with forward-only historical folds |
-| Selected combined model (P08_C021_R08V1) | [run.py](experiments/P08_C021_R08V1/code/run.py) | The exact self-contained final model followed by local performance evaluation |
+| Group | Experiment folders |
+| --- | --- |
+| Benchmark and historical-validation comparisons | [P01](experiments/P01/code/README.md), [H01](experiments/H01/code/README.md), [V01](experiments/V01/code/README.md) |
+| Return forecasts | [P02](experiments/P02/code/README.md), [P03](experiments/P03/code/README.md), [P04_INHERITED](experiments/P04_INHERITED/code/README.md), [P05](experiments/P05/code/README.md), [P05_EXPANDING_INHERITED](experiments/P05_EXPANDING_INHERITED/code/README.md), [P06](experiments/P06/code/README.md), [P07](experiments/P07/code/README.md), [P08](experiments/P08/code/README.md), [P08_SIX](experiments/P08_SIX/code/README.md), [P09_FACTOR_XGB](experiments/P09_FACTOR_XGB/code/README.md) |
+| Forecast and risk preprocessing | [T02](experiments/T02/code/README.md), [T03](experiments/T03/code/README.md), [T04](experiments/T04/code/README.md), [T04_RISK](experiments/T04_RISK/code/README.md), [T05](experiments/T05/code/README.md), [T07](experiments/T07/code/README.md), [T07_RISK](experiments/T07_RISK/code/README.md) |
+| Risk estimation | [R01](experiments/R01/code/README.md), [R02](experiments/R02/code/README.md), [R03](experiments/R03/code/README.md), [R04](experiments/R04/code/README.md), [R04_TUNED](experiments/R04_TUNED/code/README.md), [R05](experiments/R05/code/README.md), [R06](experiments/R06/code/README.md), [R07](experiments/R07/code/README.md), [R08_CORRELATION](experiments/R08_CORRELATION/code/README.md), [R08_VARIANCE](experiments/R08_VARIANCE/code/README.md), [R08_EXPANDING_CORRELATION](experiments/R08_EXPANDING_CORRELATION/code/README.md), [R08_EXPANDING_VARIANCE](experiments/R08_EXPANDING_VARIANCE/code/README.md), [R10_DD10](experiments/R10_DD10/code/README.md), [R10_DD15](experiments/R10_DD15/code/README.md), [R10_DD20](experiments/R10_DD20/code/README.md) |
+| Allocation | [C01](experiments/C01/code/README.md), [C02](experiments/C02/code/README.md), [C02_WIDE](experiments/C02_WIDE/code/README.md), [C03](experiments/C03/code/README.md), [C04](experiments/C04/code/README.md), [C05](experiments/C05/code/README.md), [C06](experiments/C06/code/README.md) |
+| Combined models | [P07_R01](experiments/P07_R01/code/README.md), [P08_R01](experiments/P08_R01/code/README.md), [E08_C021_R08V1](experiments/E08_C021_R08V1/code/README.md), [P08_C021_R08V1](experiments/P08_C021_R08V1/code/README.md) |
 
 For example, from the repository root:
 
@@ -103,7 +99,7 @@ python experiments/P01/code/run.py --data /path/to/ctf-tables --output /path/to/
 
 Each run reads the supplied tables and fits its own models. Use a separate output directory for each experiment. Within a run, risk estimates are shared across applicable portfolios. Local research scripts save weights, monthly performance and fitting records; optional generated risk artifacts support later method variants. These files remain outside the public Git history. The scripts use the input `ctff_test` flags rather than hardcoding 1990–2023.
 
-The current shared import graph is complete and can be loaded without the private research repository. The remaining experiment entry points and their saved-run source reconciliation are still being prepared. Existing results cover 46 experiment folders and 138 scalar portfolio records. This cleanup does not claim fresh full-period reproduction of every result.
+The scripts and their shared dependencies run without the private research repository. Each entry point has passed bounded execution on supplied historical data. The 38 newly packaged scripts also pass future-data removal checks. Their scientific functions and settings are reconciled with the original research code. Existing results cover 46 experiment folders and 138 scalar portfolio records. The cleanup preserves those results; bounded checks do not constitute fresh full-period reproduction.
 
 The contest entry point is [submission/model.py](submission/model.py), with [its separate requirements](submission/requirements.txt). It receives the three Pandas tables and returns weights. Only that self-contained script is prepared for contest execution. The research scripts' local file reading, caching and performance evaluation are not part of the contest entry point. See the [official rules](https://jkpfactors.com/ctf/rules). No contest upload or acceptance is claimed.
 

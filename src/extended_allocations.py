@@ -19,7 +19,7 @@ from batch_allocations import (_months, _risk, _forecasts, _frame, _scaled,
 def time_weights(weights, market_proxy, artifact_dir, *, settings=RISK_SETTINGS):
     """Multiply each frozen parent month by a predeclared 1 or .5 budget.
 
-    market_proxy has date/ret, the cached equal-weight daily regression-universe
+    market_proxy has date/ret, the capitalization-weighted daily stock
     excess-return proxy. Require twelve consecutive completed calendar months;
     their compounded proxy below zero halves exposure, otherwise retain it.
     This is a fixed research heuristic, not a calibrated market forecast.

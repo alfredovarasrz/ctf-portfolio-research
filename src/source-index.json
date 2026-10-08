@@ -1,14 +1,107 @@
 [
   {
+    "file": "artifact_utils.py",
+    "experiments": [
+      "C01",
+      "C02",
+      "C02_WIDE",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "E08_C021_R08V1",
+      "H01",
+      "P01",
+      "P02",
+      "P03",
+      "P04_INHERITED",
+      "P05",
+      "P05_EXPANDING_INHERITED",
+      "P06",
+      "P07",
+      "P07_R01",
+      "P08",
+      "P08_C021_R08V1",
+      "P08_R01",
+      "P08_SIX",
+      "P09_FACTOR_XGB",
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "R04_TUNED",
+      "R05",
+      "R06",
+      "R07",
+      "R08_CORRELATION",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R08_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20",
+      "T02",
+      "T03",
+      "T04",
+      "T04_RISK",
+      "T05",
+      "T07",
+      "T07_RISK",
+      "V01"
+    ],
+    "sha256": "f6ec7e5b3da5fdae5ece4f2e8107ed1ca3f4cfd247ef353ac443d20eb7b06820",
+    "local_dependencies": [],
+    "third_party_imports": []
+  },
+  {
     "file": "baseline.py",
     "sha256": "8f046e01c61d2e7bb0d289d5118c1236594c226df174c9e10b40bc368f489ce4",
     "experiments": [
+      "C01",
+      "C02",
+      "C02_WIDE",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "E08_C021_R08V1",
+      "H01",
       "P01",
       "P02",
+      "P03",
+      "P04_INHERITED",
+      "P05",
+      "P05_EXPANDING_INHERITED",
+      "P06",
+      "P07",
+      "P07_R01",
+      "P08",
+      "P08_C021_R08V1",
+      "P08_R01",
+      "P08_SIX",
+      "P09_FACTOR_XGB",
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "R04_TUNED",
+      "R05",
+      "R06",
+      "R07",
+      "R08_CORRELATION",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R08_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20",
+      "T02",
       "T03",
       "T04",
+      "T04_RISK",
+      "T05",
       "T07",
-      "E08_C021_R08V1",
+      "T07_RISK",
       "V01"
     ],
     "original_snapshot_sha256": "935f353841b39645e65cc25912bf10d9d1aca513fd37a8bb4c91df024a3c660a",
@@ -23,48 +116,17 @@
     ]
   },
   {
-    "file": "comparison_models.py",
-    "sha256": "ec53d7aaa7c4bd7008f68312ee98df4edd30290135150754e9db4b4d39e8c383",
-    "experiments": [
-      "P01",
-      "P02",
-      "T04",
-      "T07",
-      "E08_C021_R08V1",
-      "V01"
-    ],
-    "original_snapshot_sha256": "1ae3479e9451197f5e9c61eeefe53916f23db18bdbe9771c7a5e1e511c41bb70",
-    "local_dependencies": [
-      "baseline.py"
-    ],
-    "third_party_imports": [
-      "numpy",
-      "polars",
-      "scipy",
-      "threadpoolctl",
-      "xgboost"
-    ]
-  },
-  {
-    "file": "evaluate_baseline.py",
-    "sha256": "6306ecce3bd7d64316f3e9ef754e4068c245d1262831850d93882a667e6fc05c",
-    "experiments": [],
-    "original_snapshot_sha256": "6306ecce3bd7d64316f3e9ef754e4068c245d1262831850d93882a667e6fc05c",
-    "local_dependencies": [],
-    "third_party_imports": [
-      "numpy",
-      "polars"
-    ]
-  },
-  {
     "file": "batch_allocations.py",
     "sha256": "0bd89c961b28b22dbe5a6a5b7eacf02e5abb23fc2368f72d8e7e91ba722e6b88",
     "experiments": [
       "C01",
       "C02",
       "C02_WIDE",
-      "E08_C021_R08V1",
-      "P08_C021_R08V1"
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "E08_C021_R08V1"
     ],
     "original_snapshot_sha256": "0bd89c961b28b22dbe5a6a5b7eacf02e5abb23fc2368f72d8e7e91ba722e6b88",
     "local_dependencies": [
@@ -114,16 +176,177 @@
     ]
   },
   {
-    "file": "research_forecasts.py",
-    "sha256": "a57a2b2d9d12a011fa97b1a1da47250cf10acba4a2f12ca814dfaa33d2dc9fb9",
+    "file": "capped_calendar_validation.py",
+    "sha256": "003d8a7ed29abeec478bb239c822259923bdc8b0fbc1dc60de40067bbb4ed532",
     "experiments": [
-      "V01",
-      "P01"
+      "E08_C021_R08V1",
+      "P04_INHERITED",
+      "P05_EXPANDING_INHERITED",
+      "P09_FACTOR_XGB",
+      "R07",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20"
     ],
-    "original_snapshot_sha256": "a57a2b2d9d12a011fa97b1a1da47250cf10acba4a2f12ca814dfaa33d2dc9fb9",
+    "original_snapshot_sha256": "003d8a7ed29abeec478bb239c822259923bdc8b0fbc1dc60de40067bbb4ed532",
+    "local_dependencies": [],
+    "third_party_imports": []
+  },
+  {
+    "file": "combined_allocations.py",
+    "sha256": "12e8f593bc6d258846bffa8906fe1a3fbb285f68d668a8f5b59e68e43ac1d025",
+    "experiments": [
+      "E08_C021_R08V1"
+    ],
     "local_dependencies": [
       "baseline.py",
-      "comparison_models.py"
+      "batch_allocations.py",
+      "comparison_models.py",
+      "research_forecasts.py"
+    ],
+    "third_party_imports": [
+      "numpy",
+      "polars"
+    ]
+  },
+  {
+    "file": "comparison_models.py",
+    "sha256": "ec53d7aaa7c4bd7008f68312ee98df4edd30290135150754e9db4b4d39e8c383",
+    "experiments": [
+      "C01",
+      "C02",
+      "C02_WIDE",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "E08_C021_R08V1",
+      "H01",
+      "P01",
+      "P02",
+      "P03",
+      "P04_INHERITED",
+      "P05",
+      "P05_EXPANDING_INHERITED",
+      "P06",
+      "P07",
+      "P07_R01",
+      "P08",
+      "P08_C021_R08V1",
+      "P08_R01",
+      "P08_SIX",
+      "P09_FACTOR_XGB",
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "R04_TUNED",
+      "R05",
+      "R06",
+      "R07",
+      "R08_CORRELATION",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R08_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20",
+      "T02",
+      "T03",
+      "T04",
+      "T04_RISK",
+      "T05",
+      "T07",
+      "T07_RISK",
+      "V01"
+    ],
+    "original_snapshot_sha256": "1ae3479e9451197f5e9c61eeefe53916f23db18bdbe9771c7a5e1e511c41bb70",
+    "local_dependencies": [
+      "baseline.py"
+    ],
+    "third_party_imports": [
+      "numpy",
+      "polars",
+      "scipy",
+      "threadpoolctl",
+      "xgboost"
+    ]
+  },
+  {
+    "file": "evaluate_baseline.py",
+    "sha256": "6306ecce3bd7d64316f3e9ef754e4068c245d1262831850d93882a667e6fc05c",
+    "experiments": [
+      "C01",
+      "C02",
+      "C02_WIDE",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "E08_C021_R08V1",
+      "H01",
+      "P01",
+      "P02",
+      "P03",
+      "P04_INHERITED",
+      "P05",
+      "P05_EXPANDING_INHERITED",
+      "P06",
+      "P07",
+      "P07_R01",
+      "P08",
+      "P08_C021_R08V1",
+      "P08_R01",
+      "P08_SIX",
+      "P09_FACTOR_XGB",
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "R04_TUNED",
+      "R05",
+      "R06",
+      "R07",
+      "R08_CORRELATION",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R08_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20",
+      "T02",
+      "T03",
+      "T04",
+      "T04_RISK",
+      "T05",
+      "T07",
+      "T07_RISK",
+      "V01"
+    ],
+    "original_snapshot_sha256": "6306ecce3bd7d64316f3e9ef754e4068c245d1262831850d93882a667e6fc05c",
+    "local_dependencies": [],
+    "third_party_imports": [
+      "numpy",
+      "polars"
+    ]
+  },
+  {
+    "file": "expanding_forecasts.py",
+    "sha256": "faef935cb3b3291da5b09ccc0b6e845be495d47d101bb6c215e22498a4e16c55",
+    "experiments": [
+      "P04_INHERITED",
+      "P05_EXPANDING_INHERITED",
+      "P09_FACTOR_XGB"
+    ],
+    "original_snapshot_sha256": "faef935cb3b3291da5b09ccc0b6e845be495d47d101bb6c215e22498a4e16c55",
+    "local_dependencies": [
+      "baseline.py",
+      "capped_calendar_validation.py",
+      "comparison_models.py",
+      "extended_forecasts.py",
+      "research_forecasts.py"
     ],
     "third_party_imports": [
       "numpy",
@@ -133,43 +356,72 @@
     ]
   },
   {
-    "file": "research_risk.py",
-    "sha256": "6ade9e847c8a733442e27eff208d86df01676812683539d0989a30a9cf35d7b6",
+    "file": "experiment_io.py",
     "experiments": [
-      "P02",
-      "T03"
-    ],
-    "original_snapshot_sha256": "8a22aab4f8bb0f1a6688d4360ff44a16398095e7ccfa5d735b8960145202a5ec",
-    "local_dependencies": [
-      "baseline.py",
-      "comparison_models.py"
-    ],
-    "third_party_imports": [
-      "numpy",
-      "polars",
-      "threadpoolctl"
-    ]
-  },
-  {
-    "file": "ridge_path.py",
-    "sha256": "10b0c438d6daf9e6914a1ef21362f54db4d1d43d8f5766571459974297fc9abe",
-    "experiments": [
+      "C01",
+      "C02",
+      "C02_WIDE",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "E08_C021_R08V1",
       "H01",
+      "P01",
+      "P02",
+      "P03",
+      "P04_INHERITED",
+      "P05",
+      "P05_EXPANDING_INHERITED",
+      "P06",
+      "P07",
+      "P07_R01",
       "P08",
+      "P08_C021_R08V1",
+      "P08_R01",
       "P08_SIX",
-      "P08_R01"
+      "P09_FACTOR_XGB",
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "R04_TUNED",
+      "R05",
+      "R06",
+      "R07",
+      "R08_CORRELATION",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R08_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20",
+      "T02",
+      "T03",
+      "T04",
+      "T04_RISK",
+      "T05",
+      "T07",
+      "T07_RISK",
+      "V01"
     ],
-    "original_snapshot_sha256": "10b0c438d6daf9e6914a1ef21362f54db4d1d43d8f5766571459974297fc9abe",
+    "sha256": "5b4344ed1a671e56e9fcbdc7ee97e6fd924445cf9d9063518df5fc3cc0cb4d82",
     "local_dependencies": [
-      "baseline.py"
+      "artifact_utils.py",
+      "baseline.py",
+      "comparison_models.py",
+      "evaluate_baseline.py",
+      "market_cap_proxy.py",
+      "research_forecasts.py",
+      "research_risk.py"
     ],
     "third_party_imports": [
-      "numpy"
+      "polars"
     ]
   },
   {
     "file": "extended_allocations.py",
-    "sha256": "6cf00552c306541d031e746e48eb5cad635a52e98b35e417245eb5c0226932a3",
+    "sha256": "abafb62429fbf54d6f63920d5abfa46b65a1fdd286e537aab3d08a3e9a50f853",
     "experiments": [
       "C03",
       "C04",
@@ -194,8 +446,11 @@
     "sha256": "d0ac4fbf646fd8a5903b57ec2639fcfe79918430bb50eb28c450c9f0cdd641e2",
     "experiments": [
       "P03",
+      "P04_INHERITED",
       "P05",
-      "P06"
+      "P05_EXPANDING_INHERITED",
+      "P06",
+      "P09_FACTOR_XGB"
     ],
     "original_snapshot_sha256": "d0ac4fbf646fd8a5903b57ec2639fcfe79918430bb50eb28c450c9f0cdd641e2",
     "local_dependencies": [
@@ -215,11 +470,26 @@
     "file": "extended_risk.py",
     "sha256": "16249b0a67d19112350a42a096181d281049bb01e1aa6ea8f573df07782f05e2",
     "experiments": [
+      "E08_C021_R08V1",
+      "P07",
+      "P07_R01",
+      "P08",
+      "P08_R01",
+      "P08_SIX",
+      "P09_FACTOR_XGB",
+      "R01",
+      "R02",
+      "R04_TUNED",
+      "R05",
+      "R06",
+      "R07",
       "R08_CORRELATION",
       "R08_EXPANDING_CORRELATION",
       "R08_EXPANDING_VARIANCE",
       "R08_VARIANCE",
-      "R07"
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20"
     ],
     "original_snapshot_sha256": "16249b0a67d19112350a42a096181d281049bb01e1aa6ea8f573df07782f05e2",
     "local_dependencies": [
@@ -234,6 +504,10 @@
     "file": "extended_risk_rebuilds.py",
     "sha256": "d96cb314a3d89633962acb3540fb7c60dcc90974624e759167fd6253879f81fe",
     "experiments": [
+      "P07_R01",
+      "P08_R01",
+      "R01",
+      "R02",
       "R05",
       "R06"
     ],
@@ -251,60 +525,14 @@
     ]
   },
   {
-    "file": "expanding_forecasts.py",
-    "sha256": "faef935cb3b3291da5b09ccc0b6e845be495d47d101bb6c215e22498a4e16c55",
-    "experiments": [
-      "P04_INHERITED",
-      "P05_EXPANDING_INHERITED"
-    ],
-    "original_snapshot_sha256": "faef935cb3b3291da5b09ccc0b6e845be495d47d101bb6c215e22498a4e16c55",
-    "local_dependencies": [
-      "baseline.py",
-      "capped_calendar_validation.py",
-      "comparison_models.py",
-      "extended_forecasts.py",
-      "research_forecasts.py"
-    ],
-    "third_party_imports": [
-      "numpy",
-      "polars",
-      "threadpoolctl",
-      "xgboost"
-    ]
-  },
-  {
-    "file": "inherited_expanding_forecasts.py",
-    "sha256": "3b5807404a2a52b2c0c39a2c3e0b24a840e6c23bdbf197a2eeaeac510e7fadf1",
-    "experiments": [
-      "P04_INHERITED",
-      "P05_EXPANDING_INHERITED"
-    ],
-    "original_snapshot_sha256": "6c9d3828055a2626fdfc3c8150347f5d4aaddc265ab2fee5f4b5a7ccebe6570f",
-    "local_dependencies": [
-      "artifact_utils.py",
-      "baseline.py",
-      "comparison_models.py",
-      "expanding_forecasts.py",
-      "extended_forecasts.py",
-      "research_forecasts.py"
-    ],
-    "third_party_imports": [
-      "numpy",
-      "polars",
-      "threadpoolctl",
-      "xgboost"
-    ]
-  },
-  {
     "file": "factor_forecast_paths.py",
     "sha256": "74e136066c3db89cd7faf41530505a9cfbee104e8c41353bb70821b81a859bc7",
     "experiments": [
+      "E08_C021_R08V1",
       "P07",
       "P08",
       "P08_SIX",
-      "P09_FACTOR_XGB",
-      "E08_C021_R08V1",
-      "P08_C021_R08V1"
+      "P09_FACTOR_XGB"
     ],
     "original_snapshot_sha256": "c42501e9fde62d57d4214e16119b244f7090bdf05a7ef8ff452aa453eda6c165",
     "local_dependencies": [
@@ -343,6 +571,145 @@
     ]
   },
   {
+    "file": "inherited_expanding_forecasts.py",
+    "sha256": "3b5807404a2a52b2c0c39a2c3e0b24a840e6c23bdbf197a2eeaeac510e7fadf1",
+    "experiments": [
+      "P04_INHERITED",
+      "P05_EXPANDING_INHERITED",
+      "P09_FACTOR_XGB"
+    ],
+    "original_snapshot_sha256": "6c9d3828055a2626fdfc3c8150347f5d4aaddc265ab2fee5f4b5a7ccebe6570f",
+    "local_dependencies": [
+      "artifact_utils.py",
+      "baseline.py",
+      "comparison_models.py",
+      "expanding_forecasts.py",
+      "extended_forecasts.py",
+      "research_forecasts.py"
+    ],
+    "third_party_imports": [
+      "numpy",
+      "polars",
+      "threadpoolctl",
+      "xgboost"
+    ]
+  },
+  {
+    "file": "market_cap_proxy.py",
+    "sha256": "75c5dd6516825b6fed4a463c65ed91c9a92017d899473b25d5ed0bf5ca80f714",
+    "experiments": [
+      "C01",
+      "C02",
+      "C02_WIDE",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "E08_C021_R08V1",
+      "H01",
+      "P01",
+      "P02",
+      "P03",
+      "P04_INHERITED",
+      "P05",
+      "P05_EXPANDING_INHERITED",
+      "P06",
+      "P07",
+      "P07_R01",
+      "P08",
+      "P08_C021_R08V1",
+      "P08_R01",
+      "P08_SIX",
+      "P09_FACTOR_XGB",
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "R04_TUNED",
+      "R05",
+      "R06",
+      "R07",
+      "R08_CORRELATION",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R08_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20",
+      "T02",
+      "T03",
+      "T04",
+      "T04_RISK",
+      "T05",
+      "T07",
+      "T07_RISK",
+      "V01"
+    ],
+    "local_dependencies": [
+      "market_cap_value_digest.py"
+    ],
+    "third_party_imports": [
+      "numpy",
+      "polars"
+    ],
+    "original_snapshot_sha256": "025a50cb93b0777e4acf1203f49b3e7d377e8899115ae995ff51c641c0f966c0"
+  },
+  {
+    "file": "market_cap_value_digest.py",
+    "sha256": "294d9c2e33d8151ef3cf02305cbad91abe886d3ebad949e4b5f21f62db0823ed",
+    "experiments": [
+      "C01",
+      "C02",
+      "C02_WIDE",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "E08_C021_R08V1",
+      "H01",
+      "P01",
+      "P02",
+      "P03",
+      "P04_INHERITED",
+      "P05",
+      "P05_EXPANDING_INHERITED",
+      "P06",
+      "P07",
+      "P07_R01",
+      "P08",
+      "P08_C021_R08V1",
+      "P08_R01",
+      "P08_SIX",
+      "P09_FACTOR_XGB",
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "R04_TUNED",
+      "R05",
+      "R06",
+      "R07",
+      "R08_CORRELATION",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R08_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20",
+      "T02",
+      "T03",
+      "T04",
+      "T04_RISK",
+      "T05",
+      "T07",
+      "T07_RISK",
+      "V01"
+    ],
+    "original_snapshot_sha256": "294d9c2e33d8151ef3cf02305cbad91abe886d3ebad949e4b5f21f62db0823ed",
+    "local_dependencies": [],
+    "third_party_imports": []
+  },
+  {
     "file": "median_predictors.py",
     "sha256": "6bc407bc6177c6863e0f21ea4d33420afbe90ee272ef5bc9969039b5826866f6",
     "experiments": [
@@ -359,24 +726,197 @@
     ]
   },
   {
-    "file": "capped_calendar_validation.py",
-    "sha256": "003d8a7ed29abeec478bb239c822259923bdc8b0fbc1dc60de40067bbb4ed532",
-    "experiments": [],
-    "original_snapshot_sha256": "003d8a7ed29abeec478bb239c822259923bdc8b0fbc1dc60de40067bbb4ed532",
-    "local_dependencies": [],
-    "third_party_imports": []
+    "file": "research_forecasts.py",
+    "sha256": "a57a2b2d9d12a011fa97b1a1da47250cf10acba4a2f12ca814dfaa33d2dc9fb9",
+    "experiments": [
+      "C01",
+      "C02",
+      "C02_WIDE",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "E08_C021_R08V1",
+      "H01",
+      "P01",
+      "P02",
+      "P03",
+      "P04_INHERITED",
+      "P05",
+      "P05_EXPANDING_INHERITED",
+      "P06",
+      "P07",
+      "P07_R01",
+      "P08",
+      "P08_C021_R08V1",
+      "P08_R01",
+      "P08_SIX",
+      "P09_FACTOR_XGB",
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "R04_TUNED",
+      "R05",
+      "R06",
+      "R07",
+      "R08_CORRELATION",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R08_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20",
+      "T02",
+      "T03",
+      "T04",
+      "T04_RISK",
+      "T05",
+      "T07",
+      "T07_RISK",
+      "V01"
+    ],
+    "original_snapshot_sha256": "a57a2b2d9d12a011fa97b1a1da47250cf10acba4a2f12ca814dfaa33d2dc9fb9",
+    "local_dependencies": [
+      "baseline.py",
+      "comparison_models.py"
+    ],
+    "third_party_imports": [
+      "numpy",
+      "polars",
+      "threadpoolctl",
+      "xgboost"
+    ]
+  },
+  {
+    "file": "research_risk.py",
+    "sha256": "6ade9e847c8a733442e27eff208d86df01676812683539d0989a30a9cf35d7b6",
+    "experiments": [
+      "C01",
+      "C02",
+      "C02_WIDE",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "E08_C021_R08V1",
+      "H01",
+      "P01",
+      "P02",
+      "P03",
+      "P04_INHERITED",
+      "P05",
+      "P05_EXPANDING_INHERITED",
+      "P06",
+      "P07",
+      "P07_R01",
+      "P08",
+      "P08_C021_R08V1",
+      "P08_R01",
+      "P08_SIX",
+      "P09_FACTOR_XGB",
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "R04_TUNED",
+      "R05",
+      "R06",
+      "R07",
+      "R08_CORRELATION",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R08_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20",
+      "T02",
+      "T03",
+      "T04",
+      "T04_RISK",
+      "T05",
+      "T07",
+      "T07_RISK",
+      "V01"
+    ],
+    "original_snapshot_sha256": "8a22aab4f8bb0f1a6688d4360ff44a16398095e7ccfa5d735b8960145202a5ec",
+    "local_dependencies": [
+      "baseline.py",
+      "comparison_models.py"
+    ],
+    "third_party_imports": [
+      "numpy",
+      "polars",
+      "threadpoolctl"
+    ]
+  },
+  {
+    "file": "ridge_path.py",
+    "sha256": "10b0c438d6daf9e6914a1ef21362f54db4d1d43d8f5766571459974297fc9abe",
+    "experiments": [
+      "E08_C021_R08V1",
+      "H01",
+      "P07",
+      "P07_R01",
+      "P08",
+      "P08_R01",
+      "P08_SIX",
+      "P09_FACTOR_XGB",
+      "R01",
+      "R02"
+    ],
+    "original_snapshot_sha256": "10b0c438d6daf9e6914a1ef21362f54db4d1d43d8f5766571459974297fc9abe",
+    "local_dependencies": [
+      "baseline.py"
+    ],
+    "third_party_imports": [
+      "numpy"
+    ]
+  },
+  {
+    "file": "risk_allocations.py",
+    "sha256": "edad4cdadf98f044b4c9972a9b082d3fb6584b09a374ca1bf3c56c28a2886cfd",
+    "experiments": [
+      "P07_R01",
+      "P08_R01",
+      "R01",
+      "R02",
+      "R04_TUNED",
+      "R05",
+      "R06",
+      "R07",
+      "R08_CORRELATION",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R08_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20",
+      "T02",
+      "T04_RISK",
+      "T05",
+      "T07_RISK"
+    ],
+    "local_dependencies": [
+      "comparison_models.py"
+    ],
+    "third_party_imports": [
+      "numpy",
+      "polars",
+      "threadpoolctl"
+    ]
   },
   {
     "file": "risk_history_regimes.py",
     "sha256": "b1bcfbbe4f5fae6f0025658cc5d92b7296574430586576ca2e55ea035e1c40f8",
     "experiments": [
+      "E08_C021_R08V1",
+      "R07",
       "R08_EXPANDING_CORRELATION",
       "R08_EXPANDING_VARIANCE",
       "R10_DD10",
       "R10_DD15",
-      "R10_DD20",
-      "E08_C021_R08V1",
-      "P08_C021_R08V1"
+      "R10_DD20"
     ],
     "original_snapshot_sha256": "7e5c5e6955c52445cb4558c95906a0e0ebc8720df178f2a5d30699fe648af272",
     "local_dependencies": [
@@ -395,10 +935,10 @@
     "file": "risk_penalty_paths.py",
     "sha256": "8f7df07af6d8afad429ec01e767c092c88e5cae8d300a42b5d660f8d781723fb",
     "experiments": [
-      "R01",
-      "R02",
       "P07_R01",
-      "P08_R01"
+      "P08_R01",
+      "R01",
+      "R02"
     ],
     "original_snapshot_sha256": "8f7df07af6d8afad429ec01e767c092c88e5cae8d300a42b5d660f8d781723fb",
     "local_dependencies": [
@@ -417,10 +957,10 @@
     "file": "risk_penalty_replay.py",
     "sha256": "d01d8267e415b49ea2e7ea1e8edeb97a1052d83408c8fbfefad733c3d5a180bb",
     "experiments": [
-      "R01",
-      "R02",
       "P07_R01",
-      "P08_R01"
+      "P08_R01",
+      "R01",
+      "R02"
     ],
     "original_snapshot_sha256": "d01d8267e415b49ea2e7ea1e8edeb97a1052d83408c8fbfefad733c3d5a180bb",
     "local_dependencies": [
@@ -488,23 +1028,6 @@
     ]
   },
   {
-    "file": "tuned_risk_decay.py",
-    "sha256": "d17c522d60650d7bc1d1cdd2dff75fddc930eb3977960bb6dfe91ea9f73dd7ef",
-    "experiments": [
-      "R08_CORRELATION",
-      "R08_VARIANCE"
-    ],
-    "original_snapshot_sha256": "d17c522d60650d7bc1d1cdd2dff75fddc930eb3977960bb6dfe91ea9f73dd7ef",
-    "local_dependencies": [
-      "comparison_models.py",
-      "extended_risk.py"
-    ],
-    "third_party_imports": [
-      "numpy",
-      "threadpoolctl"
-    ]
-  },
-  {
     "file": "tuned_factor_forecast_paths.py",
     "sha256": "4429bfb79cdb742c82367108479f574e4f7a77824eefde5e248b897e2fbdfbd4",
     "experiments": [
@@ -526,54 +1049,46 @@
     ]
   },
   {
-    "file": "exploratory_combination_paths.py",
-    "sha256": "03fe35bbca5a1000c80f3211f2eaadfd9c629c2cba86d70f6c0ca419dd830215",
+    "file": "tuned_risk_decay.py",
+    "sha256": "d17c522d60650d7bc1d1cdd2dff75fddc930eb3977960bb6dfe91ea9f73dd7ef",
     "experiments": [
       "E08_C021_R08V1",
-      "P08_C021_R08V1"
+      "R07",
+      "R08_CORRELATION",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R08_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20"
     ],
-    "original_snapshot_sha256": "057c515c9fd1e84cff8e58fa19e33a297e92c19a1d702bfeb32394515f5fadd4",
+    "original_snapshot_sha256": "d17c522d60650d7bc1d1cdd2dff75fddc930eb3977960bb6dfe91ea9f73dd7ef",
+    "local_dependencies": [
+      "comparison_models.py",
+      "extended_risk.py"
+    ],
+    "third_party_imports": [
+      "numpy",
+      "threadpoolctl"
+    ]
+  },
+  {
+    "file": "wide_allocation.py",
+    "sha256": "9c3acf66a0e9ad7a40a5d4db889ed6e915e5ff22da128b32427051ef45b4ab82",
+    "experiments": [
+      "C02_WIDE"
+    ],
     "local_dependencies": [
       "artifact_utils.py",
-      "baseline.py",
       "batch_allocations.py",
       "comparison_models.py",
-      "research_forecasts.py"
+      "spectral_allocation_path.py"
     ],
     "third_party_imports": [
       "numpy",
       "polars",
-      "xgboost"
-    ]
-  },
-  {
-    "file": "market_cap_value_digest.py",
-    "sha256": "294d9c2e33d8151ef3cf02305cbad91abe886d3ebad949e4b5f21f62db0823ed",
-    "experiments": [],
-    "original_snapshot_sha256": "294d9c2e33d8151ef3cf02305cbad91abe886d3ebad949e4b5f21f62db0823ed",
-    "local_dependencies": [],
-    "third_party_imports": []
-  },
-  {
-    "file": "artifact_utils.py",
-    "experiments": [],
-    "sha256": "f6ec7e5b3da5fdae5ece4f2e8107ed1ca3f4cfd247ef353ac443d20eb7b06820",
-    "local_dependencies": [],
-    "third_party_imports": []
-  },
-  {
-    "file": "experiment_io.py",
-    "experiments": [],
-    "sha256": "b71e6f27268845af239f861a86649ca58e6f79798da8d6caeb751e2bbd3f2606",
-    "local_dependencies": [
-      "artifact_utils.py",
-      "baseline.py",
-      "comparison_models.py",
-      "evaluate_baseline.py",
-      "research_forecasts.py"
+      "threadpoolctl"
     ],
-    "third_party_imports": [
-      "polars"
-    ]
+    "original_snapshot_sha256": "4b5082af7012a4fcead47df441b62d34d11cd725cd6ccef1d79fab3679a6ed87"
   }
 ]
