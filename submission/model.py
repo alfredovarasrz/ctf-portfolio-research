@@ -61,7 +61,7 @@ def canonical_chars(chars: pd.DataFrame, features: list[str]) -> pl.LazyFrame:
         pl.col('id').cast(pl.Int64),
         pl.col('eom', 'eom_ret').cast(pl.Date),
         pl.col('excntry').cast(pl.String),
-        pl.col('sic').cast(pl.String),
+        pl.col('sic').cast(pl.Float64, strict=False).fill_nan(None),
         pl.col('ctff_test').cast(pl.String).str.to_lowercase().replace_strict(
             {'0': False, '1': True, 'false': False, 'true': True},
             default=None, return_dtype=pl.Boolean),
@@ -122,7 +122,9 @@ def ff12_class(sic):
      ('Shops', [(5000, 5999), (7200, 7299), (7600, 7699)]),
      ('Hlth', [(2830, 2839), (3693, 3693), (3840, 3859), (8000, 8099)]),
      ('Money', [(6000, 6999)])]
-    values = np.array([int(v) if v is not None and str(v).isdigit() else -1 for v in sic])
+    values = np.asarray(sic, dtype=float)
+    valid = np.isfinite(values) & (values == np.floor(values))
+    values = np.where(valid, values, -1)
     labels = np.full(len(values), 'Other', dtype='U5')
     assigned = np.zeros(len(values), bool)
     for name, ranges in groups:
@@ -210,6 +212,7 @@ def glmnet_ridge(x, y, penalty):
 
 def weighted_covariance(values, half_life):
     weights = 0.5 ** (np.arange(len(values), 0, -1) / half_life)
+    # This covariance is symmetrized after correlation/variance scaling.
     return covariance_with_weights(values, weights, symmetric=False)
 
 
@@ -225,7 +228,6 @@ class SpecificRiskState:
 
     def __init__(self, ids, settings):
         self.settings = settings
-        self.ids = np.asarray(ids)
         n = len(ids)
         self.count = np.zeros(n, dtype=np.int64)
         self.seed_squares = np.zeros(n)
@@ -400,7 +402,7 @@ def fit_factor_forecast(targets, first, cutoff, labels):
 
 
 def covariance_with_weights(values, weights, *, symmetric=True):
-    """Unbiased weighted covariance; preserve the benchmark's rounding order."""
+    """Unbiased weighted covariance, with optional numerical symmetrization."""
     values = np.asarray(values, dtype=float)
     weights = np.asarray(weights, dtype=float)
     weights = weights / weights.sum()
@@ -450,9 +452,7 @@ class ExpandingEW:
     """Merge weighted centered moments once per newly completed factor block."""
 
     def __init__(self, width, half_life):
-        self.width = width
         self.half_life = half_life
-        self.days = 0
         self.weight = self.squared_weight = 0.0
         self.mean = np.zeros(width)
         self.scatter = np.zeros((width, width))
@@ -476,7 +476,6 @@ class ExpandingEW:
         self.mean = self.mean + delta * (block_weight / total)
         self.weight = total
         self.squared_weight = self.squared_weight * decay ** 2 + float(weights @ weights)
-        self.days += len(values)
 
     def covariance(self):
         denominator = self.weight - self.squared_weight / self.weight if self.weight else 0.0
@@ -648,6 +647,7 @@ def main(chars: pd.DataFrame, features: pd.DataFrame,
                                           RISK_SETTINGS.ridge_lambda)
             previous = frame, b
             if factors:
+                # Column-contiguous storage fixes the daily-to-monthly summation order.
                 block = np.array(factors, order='F')
                 targets[d] = block.sum(axis=0)
                 full_factors.extend(block)
@@ -672,8 +672,7 @@ def main(chars: pd.DataFrame, features: pd.DataFrame,
                 realized = bank_frame.filter(pl.col('id').is_in(bank_ids.tolist()))
                 y = realized['ret_exc_lead1m'].to_numpy()
                 payoffs = bank_weights @ y if np.isfinite(y).all() else None
-                history.append(dict(eom=formation, eom_ret=return_date,
-                                    markowitz=payoffs))
+                history.append(dict(eom_ret=return_date, markowitz=payoffs))
             pending = unreleased
 
             if d in refit_dates:
