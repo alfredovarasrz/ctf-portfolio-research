@@ -1,0 +1,148 @@
+{
+  "experiment": "T03",
+  "title": "Percentile-ranked forecasts",
+  "description": "This experiment replaces each original stock expected-return forecast with its country/month percentile rank centered at zero. The forecast models themselves are unchanged. Decile portfolios retain the same ordering and serve as an invariance comparison, while Markowitz now optimizes using rank scores rather than calibrated expected returns. Original covariance stays fixed. Prediction MSE is omitted for these scores because their units are ranks, not returns.",
+  "method": {
+    "parameters": [
+      "Maximum-tie ranks centered by0.5; separate original Ridge and XGBoost streams."
+    ],
+    "unchanged": "Original fitted forecasts, risk and decile/allocation functions.",
+    "limits": [
+      "Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.",
+      "Monotone ranking leaves decile membership unchanged under the preserved tie policy; decile outputs are invariance controls. Scores are not returns, so return-MSE is not meaningful for them."
+    ]
+  },
+  "rows": [
+    {
+      "model": "ridge_rank_deciles",
+      "view": "equal-weight deciles; no fixed volatility budget",
+      "control": "P01/ridge",
+      "parent_control": "P01/ridge",
+      "primary_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "parent_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.14180481169411407,
+        "volatility_annual": 0.1917031479338962,
+        "sharpe_annual": 0.7397103971553547,
+        "maximum_drawdown": 0.5462414495777278,
+        "gross_leverage": 1.9999999999999982,
+        "maximum_absolute_net_weight": 5.377642775528102e-17,
+        "turnover_monthly": 1.4327526762557419,
+        "prediction_mse": null,
+        "prediction_r2_zero": null,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "ridge_rank_markowitz",
+      "view": "ORIGINAL covariance10% Markowitz",
+      "control": "P01/markowitz_ridge",
+      "parent_control": "P01/markowitz_ridge",
+      "primary_delta": {
+        "mean_annual": -0.07520250530962264,
+        "volatility_annual": -0.027139532017077153,
+        "sharpe_annual": -0.1574802433905409
+      },
+      "parent_delta": {
+        "mean_annual": -0.07520250530962264,
+        "volatility_annual": -0.027139532017077153,
+        "sharpe_annual": -0.1574802433905409
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.2158442748450053,
+        "volatility_annual": 0.10893776639498894,
+        "sharpe_annual": 1.9813539600435022,
+        "maximum_drawdown": 0.2631427750626214,
+        "gross_leverage": 9.971621835138713,
+        "maximum_absolute_net_weight": 0.3612532773789414,
+        "turnover_monthly": 6.8100871106638285,
+        "prediction_mse": null,
+        "prediction_r2_zero": null,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "xgboost_rank_deciles",
+      "view": "equal-weight deciles; no fixed volatility budget",
+      "control": "P01/factor_ml",
+      "parent_control": "P01/factor_ml",
+      "primary_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "parent_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.1433100802717554,
+        "volatility_annual": 0.20358556332707106,
+        "sharpe_annual": 0.7039304650571913,
+        "maximum_drawdown": 0.5915207946020113,
+        "gross_leverage": 1.9999999999999987,
+        "maximum_absolute_net_weight": 2.796374243274613e-15,
+        "turnover_monthly": 1.6060222628505203,
+        "prediction_mse": null,
+        "prediction_r2_zero": null,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "xgboost_rank_markowitz",
+      "view": "ORIGINAL covariance10% Markowitz",
+      "control": "P01/markowitz_ml",
+      "parent_control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": -0.0900639097408436,
+        "volatility_annual": -0.022396990513688153,
+        "sharpe_annual": -0.27946379652590725
+      },
+      "parent_delta": {
+        "mean_annual": -0.0900639097408436,
+        "volatility_annual": -0.022396990513688153,
+        "sharpe_annual": -0.27946379652590725
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.27758810861723876,
+        "volatility_annual": 0.13461255845637377,
+        "sharpe_annual": 2.0621263855348353,
+        "maximum_drawdown": 0.16193066231196673,
+        "gross_leverage": 11.860995703068504,
+        "maximum_absolute_net_weight": 0.318612551573454,
+        "turnover_monthly": 9.541611149433487,
+        "prediction_mse": null,
+        "prediction_r2_zero": null,
+        "trading_costs_included": false
+      }
+    }
+  ],
+  "producer_seconds": 26.443410208041314,
+  "timing_note": "Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.",
+  "summary_sha256": "23765d1ef91484abe67b13f7f8489a9a2b2d93462fe6d93a6a6e9cd16bf705cb"
+}

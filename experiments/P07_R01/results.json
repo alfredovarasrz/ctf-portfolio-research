@@ -1,0 +1,54 @@
+{
+  "experiment": "P07_R01",
+  "title": "P07 forecasts with historically tuned daily Barra Ridge",
+  "description": "This variant applies the tuned daily Barra Ridge penalty from R01 to P07's factor-mean forecasting approach. The changed daily regression produces different factor coefficients and residuals, so both the factor forecasts and risk estimates change. It then maps the historical factor-mean forecast through known stock exposures as in P07. Results include native changed-risk scaling and an original-risk reference version, compared with both P01 and original P07. The run reused accepted R01 risk histories, so its recorded producer time is incremental.",
+  "rows": [
+    {
+      "model": "markowitz_ml",
+      "view": "native changed-risk scaling",
+      "control": "P01/markowitz_ml",
+      "parent_control": "P07/markowitz_ml",
+      "metrics": {
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.457835801868154,
+        "volatility_annual": 0.15983294511229035,
+        "sharpe_annual": 2.86446452917765,
+        "maximum_drawdown": 0.19291768341983007,
+        "gross_leverage": 8.781958570037895,
+        "turnover_monthly": 7.1624835846692685
+      },
+      "primary_delta": {
+        "sharpe_annual": 0.5228743471169075
+      },
+      "parent_delta": {
+        "sharpe_annual": -0.5684937477595171
+      }
+    },
+    {
+      "model": "markowitz_ml_reference",
+      "view": "original-risk reference scaling",
+      "control": "P01/markowitz_ml",
+      "parent_control": "P07/markowitz_ml",
+      "metrics": {
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.3040171315109652,
+        "volatility_annual": 0.0998197002194895,
+        "sharpe_annual": 3.0456626381613474,
+        "maximum_drawdown": 0.16376868524123,
+        "gross_leverage": 6.446041126132518,
+        "turnover_monthly": 5.205692423467987
+      },
+      "primary_delta": {
+        "sharpe_annual": 0.7040724561006049
+      },
+      "parent_delta": {
+        "sharpe_annual": -0.38729563877581974
+      }
+    }
+  ],
+  "producer_seconds": 27.780589082976803,
+  "timing_note": "Incremental producer time with accepted R01 risk histories reused; not a cold end-to-end runtime.",
+  "summary_sha256": "bb592f1f2e651e436dfcc41cd2c94888517949e8e4e778d35b3960b1433720bc"
+}

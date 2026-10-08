@@ -1,0 +1,117 @@
+{
+  "experiment": "R06",
+  "title": "Grouped risk-characteristic basis",
+  "description": "This experiment groups the characteristic-risk coordinates into 21 fixed hierarchical groups. The annual grouping uses historical daily factor coefficients after removing dependence on a dataset-derived market proxy, with Ward linkage; industry indicators remain separate. The risk model then consistently rebuilds factor regressions, residuals, covariance and specific-risk state under the grouped exposure mapping. Stock forecasts and allocation rules remain original. It tests a fixed grouping design, not an exhaustive search over the number of groups or a complete replication of a published empirical result.",
+  "method": {
+    "parameters": [
+      "Ward linkage after removing dataset-derived market-proxy dependence; latest2520original daily factor rows.",
+      "Fixed21groups, annual mapping; industries separate; consistent factor/residual/F/D rebuild."
+    ],
+    "unchanged": "Original stock forecasts and numerical risk/allocator rules.",
+    "limits": [
+      "Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.",
+      "Algorithmic analogue of the replication-crisis paper, not its published factor taxonomy. Saved grouping map/directions/risk/raw proof is not independent Ward or full daily-state regeneration."
+    ]
+  },
+  "rows": [
+    {
+      "model": "minimum_variance_native",
+      "view": "native net-one MVP",
+      "control": "P01/minimum_variance",
+      "parent_control": "P01/minimum_variance",
+      "primary_delta": {
+        "mean_annual": -0.026764303910581114,
+        "volatility_annual": 0.0037911990975239146,
+        "sharpe_annual": -0.2999916475343466
+      },
+      "parent_delta": {
+        "mean_annual": -0.026764303910581114,
+        "volatility_annual": 0.0037911990975239146,
+        "sharpe_annual": -0.2999916475343466
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.06562580449312198,
+        "volatility_annual": 0.1012030223983117,
+        "sharpe_annual": 0.6484569624297779,
+        "maximum_drawdown": 0.33119402003066234,
+        "gross_leverage": 3.4039188919364207,
+        "maximum_absolute_net_weight": 1.0000000000000047,
+        "turnover_monthly": 1.7118883364601345,
+        "prediction_mse": 0.017858480446386767,
+        "prediction_r2_zero": 0.003283475850303863,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "markowitz_xgboost_native",
+      "view": "variant covariance10%",
+      "control": "P01/markowitz_ml",
+      "parent_control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": 0.10094903496902502,
+        "volatility_annual": 0.1010829076029423,
+        "sharpe_annual": -0.5259576775339838
+      },
+      "parent_delta": {
+        "mean_annual": 0.10094903496902502,
+        "volatility_annual": 0.1010829076029423,
+        "sharpe_annual": -0.5259576775339838
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.4686010533271074,
+        "volatility_annual": 0.2580924565730042,
+        "sharpe_annual": 1.8156325045267587,
+        "maximum_drawdown": 0.4444919390151679,
+        "gross_leverage": 11.542196451776775,
+        "maximum_absolute_net_weight": 1.8967090612900308,
+        "turnover_monthly": 8.323440654443694,
+        "prediction_mse": 0.017858480446386767,
+        "prediction_r2_zero": 0.003283475850303863,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "markowitz_xgboost_reference",
+      "view": "ORIGINAL covariance10%",
+      "control": "P01/markowitz_ml",
+      "parent_control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": -0.15965621067959346,
+        "volatility_annual": -0.05192288392757709,
+        "sharpe_annual": -0.36231138779698324
+      },
+      "parent_delta": {
+        "mean_annual": -0.15965621067959346,
+        "volatility_annual": -0.05192288392757709,
+        "sharpe_annual": -0.36231138779698324
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.2079958076784889,
+        "volatility_annual": 0.10508666504248483,
+        "sharpe_annual": 1.9792787942637593,
+        "maximum_drawdown": 0.17525038821609018,
+        "gross_leverage": 4.89785206147556,
+        "maximum_absolute_net_weight": 0.9027497061053216,
+        "turnover_monthly": 3.653054846088485,
+        "prediction_mse": 0.017858480446386767,
+        "prediction_r2_zero": 0.003283475850303863,
+        "trading_costs_included": false
+      }
+    }
+  ],
+  "producer_seconds": 945.6418349170126,
+  "timing_note": "Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.",
+  "summary_sha256": "1d6c21d7c96ad10153620beac15b6f5aa57064a453ec3564dc6b12dc7557a2a8"
+}

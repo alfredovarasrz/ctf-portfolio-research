@@ -1,0 +1,301 @@
+[
+  {
+    "file": "baseline.py",
+    "sha256": "935f353841b39645e65cc25912bf10d9d1aca513fd37a8bb4c91df024a3c660a",
+    "experiments": [
+      "P01",
+      "P02",
+      "T03",
+      "T04",
+      "T07",
+      "E08_C021_R08V1",
+      "V01"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "comparison_models.py",
+    "sha256": "1ae3479e9451197f5e9c61eeefe53916f23db18bdbe9771c7a5e1e511c41bb70",
+    "experiments": [
+      "P01",
+      "P02",
+      "T04",
+      "T07",
+      "E08_C021_R08V1",
+      "V01"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "evaluate_baseline.py",
+    "sha256": "6306ecce3bd7d64316f3e9ef754e4068c245d1262831850d93882a667e6fc05c",
+    "experiments": [],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "batch_allocations.py",
+    "sha256": "0bd89c961b28b22dbe5a6a5b7eacf02e5abb23fc2368f72d8e7e91ba722e6b88",
+    "experiments": [
+      "C01",
+      "C02",
+      "C02_WIDE",
+      "E08_C021_R08V1",
+      "P08_C021_R08V1"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "batch_forecasts.py",
+    "sha256": "627c8c4d9faeb5a2bf270e3243386c3e0fa1c3568e2f98c541dbbec959e471a2",
+    "experiments": [
+      "H01"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "batch_risk.py",
+    "sha256": "8c11837e3149292d6f93870384ecfe53c9068be3d83885dae423c48f1aad7627",
+    "experiments": [
+      "R03",
+      "R04",
+      "R04_TUNED"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "research_forecasts.py",
+    "sha256": "a57a2b2d9d12a011fa97b1a1da47250cf10acba4a2f12ca814dfaa33d2dc9fb9",
+    "experiments": [
+      "V01",
+      "P01"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "research_risk.py",
+    "sha256": "8a22aab4f8bb0f1a6688d4360ff44a16398095e7ccfa5d735b8960145202a5ec",
+    "experiments": [
+      "P02",
+      "T03"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "ridge_path.py",
+    "sha256": "10b0c438d6daf9e6914a1ef21362f54db4d1d43d8f5766571459974297fc9abe",
+    "experiments": [
+      "H01",
+      "P08",
+      "P08_SIX",
+      "P08_R01"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "extended_allocations.py",
+    "sha256": "6cf00552c306541d031e746e48eb5cad635a52e98b35e417245eb5c0226932a3",
+    "experiments": [
+      "C03",
+      "C04",
+      "C05",
+      "C06"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "extended_forecasts.py",
+    "sha256": "d0ac4fbf646fd8a5903b57ec2639fcfe79918430bb50eb28c450c9f0cdd641e2",
+    "experiments": [
+      "P03",
+      "P05",
+      "P06"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "extended_risk.py",
+    "sha256": "16249b0a67d19112350a42a096181d281049bb01e1aa6ea8f573df07782f05e2",
+    "experiments": [
+      "R08_CORRELATION",
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R08_VARIANCE",
+      "R07"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "extended_risk_rebuilds.py",
+    "sha256": "d96cb314a3d89633962acb3540fb7c60dcc90974624e759167fd6253879f81fe",
+    "experiments": [
+      "R05",
+      "R06"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "expanding_forecasts.py",
+    "sha256": "faef935cb3b3291da5b09ccc0b6e845be495d47d101bb6c215e22498a4e16c55",
+    "experiments": [
+      "P04_INHERITED",
+      "P05_EXPANDING_INHERITED"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "inherited_expanding_forecasts.py",
+    "sha256": "6c9d3828055a2626fdfc3c8150347f5d4aaddc265ab2fee5f4b5a7ccebe6570f",
+    "experiments": [
+      "P04_INHERITED",
+      "P05_EXPANDING_INHERITED"
+    ],
+    "local_dependencies_not_yet_packaged": [
+      "run_extended_portfolios"
+    ]
+  },
+  {
+    "file": "factor_forecast_paths.py",
+    "sha256": "c42501e9fde62d57d4214e16119b244f7090bdf05a7ef8ff452aa453eda6c165",
+    "experiments": [
+      "P07",
+      "P08",
+      "P08_SIX",
+      "P09_FACTOR_XGB",
+      "E08_C021_R08V1",
+      "P08_C021_R08V1"
+    ],
+    "local_dependencies_not_yet_packaged": [
+      "research_resources"
+    ]
+  },
+  {
+    "file": "factor_xgb_paths.py",
+    "sha256": "c2b6d034266567f0941b8b80340b65a9fbcb5094e8ef8f0d7fb4682178b11748",
+    "experiments": [
+      "P09_FACTOR_XGB"
+    ],
+    "local_dependencies_not_yet_packaged": [
+      "research_resources"
+    ]
+  },
+  {
+    "file": "median_predictors.py",
+    "sha256": "a3a520603ab497875279932dc7a4aa528b86b21f3fcfd2937c477600c2b86cf4",
+    "experiments": [
+      "T04",
+      "T07"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "capped_calendar_validation.py",
+    "sha256": "003d8a7ed29abeec478bb239c822259923bdc8b0fbc1dc60de40067bbb4ed532",
+    "experiments": [],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "risk_history_regimes.py",
+    "sha256": "7e5c5e6955c52445cb4558c95906a0e0ebc8720df178f2a5d30699fe648af272",
+    "experiments": [
+      "R08_EXPANDING_CORRELATION",
+      "R08_EXPANDING_VARIANCE",
+      "R10_DD10",
+      "R10_DD15",
+      "R10_DD20",
+      "E08_C021_R08V1",
+      "P08_C021_R08V1"
+    ],
+    "local_dependencies_not_yet_packaged": [
+      "research_resources",
+      "run_extended_portfolios"
+    ]
+  },
+  {
+    "file": "risk_penalty_paths.py",
+    "sha256": "8f7df07af6d8afad429ec01e767c092c88e5cae8d300a42b5d660f8d781723fb",
+    "experiments": [
+      "R01",
+      "R02",
+      "P07_R01",
+      "P08_R01"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "risk_penalty_replay.py",
+    "sha256": "d01d8267e415b49ea2e7ea1e8edeb97a1052d83408c8fbfefad733c3d5a180bb",
+    "experiments": [
+      "R01",
+      "R02",
+      "P07_R01",
+      "P08_R01"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "risk_preprocessing.py",
+    "sha256": "551dd1b366c2501eef772f575bfa7296bd3f99e4f0f34f9b1d54f96a04f18369",
+    "experiments": [
+      "T02",
+      "T04_RISK",
+      "T05",
+      "T07_RISK"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "spectral_allocation_path.py",
+    "sha256": "7aaf2238bbca948993aab2a21ae735c9ff03dfbaadf66d75d6768f5513358c44",
+    "experiments": [
+      "C02_WIDE"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "tuned_covariance_pca.py",
+    "sha256": "f38f02f207ec90e768e9cea599005626253ce8118dc238d7882121dbdb26967b",
+    "experiments": [
+      "R04_TUNED"
+    ],
+    "local_dependencies_not_yet_packaged": [
+      "research_resources"
+    ]
+  },
+  {
+    "file": "tuned_risk_decay.py",
+    "sha256": "d17c522d60650d7bc1d1cdd2dff75fddc930eb3977960bb6dfe91ea9f73dd7ef",
+    "experiments": [
+      "R08_CORRELATION",
+      "R08_VARIANCE"
+    ],
+    "local_dependencies_not_yet_packaged": []
+  },
+  {
+    "file": "tuned_factor_forecast_paths.py",
+    "sha256": "9068876cef87bf61720fd4a5e49b24f3723ad048c0d5d717d6fb57e922332050",
+    "experiments": [
+      "P07_R01",
+      "P08_R01"
+    ],
+    "local_dependencies_not_yet_packaged": [
+      "research_resources"
+    ]
+  },
+  {
+    "file": "exploratory_combination_paths.py",
+    "sha256": "057c515c9fd1e84cff8e58fa19e33a297e92c19a1d702bfeb32394515f5fadd4",
+    "experiments": [
+      "E08_C021_R08V1",
+      "P08_C021_R08V1"
+    ],
+    "local_dependencies_not_yet_packaged": [
+      "research_resources"
+    ]
+  },
+  {
+    "file": "market_cap_value_digest.py",
+    "sha256": "294d9c2e33d8151ef3cf02305cbad91abe886d3ebad949e4b5f21f62db0823ed",
+    "experiments": [],
+    "local_dependencies_not_yet_packaged": []
+  }
+]

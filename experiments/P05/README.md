@@ -1,0 +1,39 @@
+# P05: Forecast-history decay
+
+## What this experiment tests
+
+This experiment gives more weight to recent observations when fitting stock-return forecasts, while retaining the original rolling 120-month history. Training weights follow 1/(1+age/h), with h selected from 12, 36, 60 and 120 months using historical validation alongside the original XGBoost settings. A smaller h discounts older observations more strongly. Training weights are normalized within each fit, while validation evaluates unweighted stock-return error. Risk estimation and portfolio construction stay original. This rolling-history version is distinct from P05_EXPANDING_INHERITED.
+
+## Saved results
+
+| Portfolio | Scaling/view | Control | Sharpe | Delta Sharpe | Max drawdown |
+| --- | --- | --- | ---: | ---: | ---: |
+| factor_ml | equal-weight deciles; no fixed volatility budget | P01/factor_ml | 0.6754 | -0.0286 | 54.71% |
+| markowitz_ml | ORIGINAL covariance10% Markowitz | P01/markowitz_ml | 2.1895 | -0.1521 | 29.72% |
+
+Metrics cover January 1990 through December 2023. Returns and volatility are annualized from monthly excess returns. Drawdown uses compounded monthly excess returns. Sharpe improvements across components are not additive.
+
+Recorded producer time: 21095.816 seconds (351.6 minutes).
+Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.
+
+## Code used by this experiment
+
+These are the principal implementation files currently staged for this experiment. Shared preprocessing, benchmark risk and performance calculations also use [baseline.py](../../src/baseline.py), [comparison_models.py](../../src/comparison_models.py) and [evaluate_baseline.py](../../src/evaluate_baseline.py), as applicable. The full standalone execution package is still being prepared; remaining private-runner imports are listed in [the source index](../../src/source-index.json).
+
+- [extended_forecasts.py](../../src/extended_forecasts.py): Predictor PCA, rolling age-weighted forecasts and three-month-block bagging.
+
+Historical model-parameter validation remains part of the scientific implementation. Separate correctness checks, numerical verifiers and operational schedulers are excluded.
+
+## Method details
+
+- Hyperbolic weight1/(1+age/h), power1; h=12,36,60,120months.
+- Each training fit normalizes observation weights to mean1; validation stock-return MSE is unweighted.
+- Age rate and original20tree configurations selected historically; original two-stage tree-count refinement.
+
+## Interpretation limits
+
+- Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.
+- This completed cell is rolling-window weighting, not expanding-plus-weighting.
+- Saved execution_seconds includes human process pauses and should not be presented as CPU time or uninterrupted runtime.
+
+Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Public release requires source-version reconciliation, attribution review and final packaging.

@@ -1,0 +1,87 @@
+{
+  "experiment": "P05",
+  "title": "Forecast-history decay",
+  "description": "This experiment gives more weight to recent observations when fitting stock-return forecasts, while retaining the original rolling 120-month history. Training weights follow 1/(1+age/h), with h selected from 12, 36, 60 and 120 months using historical validation alongside the original XGBoost settings. A smaller h discounts older observations more strongly. Training weights are normalized within each fit, while validation evaluates unweighted stock-return error. Risk estimation and portfolio construction stay original. This rolling-history version is distinct from P05_EXPANDING_INHERITED.",
+  "method": {
+    "parameters": [
+      "Hyperbolic weight1/(1+age/h), power1; h=12,36,60,120months.",
+      "Each training fit normalizes observation weights to mean1; validation stock-return MSE is unweighted.",
+      "Age rate and original20tree configurations selected historically; original two-stage tree-count refinement."
+    ],
+    "unchanged": "Original120-month history/five-block policy, risk and allocation.",
+    "limits": [
+      "Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.",
+      "This completed cell is rolling-window weighting, not expanding-plus-weighting.",
+      "Saved execution_seconds includes human process pauses and should not be presented as CPU time or uninterrupted runtime."
+    ]
+  },
+  "rows": [
+    {
+      "model": "factor_ml",
+      "view": "equal-weight deciles; no fixed volatility budget",
+      "control": "P01/factor_ml",
+      "parent_control": "P01/factor_ml",
+      "primary_delta": {
+        "mean_annual": 0.0055468689003755345,
+        "volatility_annual": 0.016826735007821864,
+        "sharpe_annual": -0.028573643787814018
+      },
+      "parent_delta": {
+        "mean_annual": 0.0055468689003755345,
+        "volatility_annual": 0.016826735007821864,
+        "sharpe_annual": -0.028573643787814018
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.14885694917213094,
+        "volatility_annual": 0.22041229833489293,
+        "sharpe_annual": 0.6753568212693772,
+        "maximum_drawdown": 0.547092985546906,
+        "gross_leverage": 1.999999999999998,
+        "maximum_absolute_net_weight": 4.160734257130372e-15,
+        "turnover_monthly": 1.6189320459438943,
+        "prediction_mse": 0.01788056850717905,
+        "prediction_r2_zero": 0.002050698221536029,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "markowitz_ml",
+      "view": "ORIGINAL covariance10% Markowitz",
+      "control": "P01/markowitz_ml",
+      "parent_control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": -0.01877894245961098,
+        "volatility_annual": 0.0023291679227201156,
+        "sharpe_annual": -0.15208418689683167
+      },
+      "parent_delta": {
+        "mean_annual": -0.01877894245961098,
+        "volatility_annual": 0.0023291679227201156,
+        "sharpe_annual": -0.15208418689683167
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.3488730758984714,
+        "volatility_annual": 0.15933871689278203,
+        "sharpe_annual": 2.189505995163911,
+        "maximum_drawdown": 0.2971740379683526,
+        "gross_leverage": 9.545332127821604,
+        "maximum_absolute_net_weight": 2.25833851638088,
+        "turnover_monthly": 7.746726470023604,
+        "prediction_mse": 0.01788056850717905,
+        "prediction_r2_zero": 0.002050698221536029,
+        "trading_costs_included": false
+      }
+    }
+  ],
+  "producer_seconds": 21095.81612987502,
+  "timing_note": "Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.",
+  "summary_sha256": "7b58168f4e44dfd559411a15cec7313a72136c4dc9e8953e91f43902957e6972"
+}

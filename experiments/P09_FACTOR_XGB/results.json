@@ -1,0 +1,37 @@
+{
+  "experiment": "P09_FACTOR_XGB",
+  "title": "Factor-level XGBoost forecasts mapped to stocks",
+  "description": "This experiment changes P08's factor-level forecasting model from Ridge to XGBoost. It keeps the same completed monthly sums of original daily Barra coefficients, observed lag-one factor inputs, 414 coordinates and mapping through current stock exposures. A single multioutput vector-leaf XGBoost model uses the original P01 annual depth, leaf penalty and sampling settings, but selects its own shared tree count using actual mapped stock-return validation error. Learning rate is 0.01, patience is 25 rounds and the predeclared ceiling is 1,000 rounds. Only Markowitz ML is evaluated, with original risk and allocation and no C02 or R08 combination in this standalone run.",
+  "method": {},
+  "rows": [
+    {
+      "model": "markowitz_ml",
+      "view": "ORIGINAL covariance, estimated 10% annual budget",
+      "control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": 0.015248163797821457,
+        "volatility_annual": -0.04062472731883646,
+        "sharpe_annual": 0.9483592866367689
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.3829001821559038,
+        "volatility_annual": 0.11638482165122546,
+        "sharpe_annual": 3.2899494686975115,
+        "maximum_drawdown": 0.14333158498719767,
+        "gross_leverage": 8.570551301963539,
+        "maximum_absolute_net_weight": 1.1986380309602,
+        "turnover_monthly": 7.465902827571669,
+        "prediction_mse": 0.01785628547009898,
+        "prediction_r2_zero": 0.0034059817456246755,
+        "trading_costs_included": false
+      }
+    }
+  ],
+  "producer_seconds": 3591.8660764159868,
+  "timing_note": "Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.",
+  "summary_sha256": "9b7ff609e9e89ca601ef00f9068cd6829a77d59788551096f8ae379a38451a0a"
+}

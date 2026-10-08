@@ -1,0 +1,36 @@
+# P07: Historical factor-mean forecasts
+
+## What this experiment tests
+
+This experiment replaces stock-level machine-learning forecasts with forecasts derived from the original Barra factor coefficients. Daily cross-sectional regressions explain observed stock excess returns using the preceding month-end characteristic and industry exposures. At each annual forecast anchor, P07 takes the mean of the latest 2,520 completed daily coefficient vectors and multiplies it by 21 as an approximate monthly forecast. That factor forecast is frozen for the annual chunk; each month's known stock exposures map it into expected stock returns. Those expected returns feed the decile or Markowitz allocator. The factor coefficients are regression estimates, not automatically tradable factor-portfolio returns.
+
+## Saved results
+
+| Portfolio | Scaling/view | Control | Sharpe | Delta Sharpe | Max drawdown |
+| --- | --- | --- | ---: | ---: | ---: |
+| factor_ml | equal-weight deciles; no fixed volatility budget | P01/factor_ml | 1.1333 | +0.4293 | 54.40% |
+| markowitz_ml | ORIGINAL covariance10% Markowitz | P01/markowitz_ml | 3.4330 | +1.0914 | 11.61% |
+
+Metrics cover January 1990 through December 2023. Returns and volatility are annualized from monthly excess returns. Drawdown uses compounded monthly excess returns. Sharpe improvements across components are not additive.
+
+Recorded producer time: 31.001 seconds (0.5 minutes).
+Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.
+
+## Code used by this experiment
+
+These are the principal implementation files currently staged for this experiment. Shared preprocessing, benchmark risk and performance calculations also use [baseline.py](../../src/baseline.py), [comparison_models.py](../../src/comparison_models.py) and [evaluate_baseline.py](../../src/evaluate_baseline.py), as applicable. The full standalone execution package is still being prepared; remaining private-runner imports are listed in [the source index](../../src/source-index.json).
+
+- [factor_forecast_paths.py](../../src/factor_forecast_paths.py): P07 factor-mean forecasts and P08/P08_SIX lagged-factor Ridge forecasts with mapped stock-error selection.
+
+Historical model-parameter validation remains part of the scientific implementation. Separate correctness checks, numerical verifiers and operational schedulers are excluded.
+
+## Method details
+
+- Latest2520daily coefficients; daily mean multiplied by21; annual forecast-parameter freeze.
+
+## Interpretation limits
+
+- Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.
+- Mean times21 is a linear horizon approximation, not compounding tradable factor returns. No new original Barra regression is claimed.
+
+Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Public release requires source-version reconciliation, attribution review and final packaging.

@@ -1,0 +1,85 @@
+{
+  "experiment": "H01",
+  "title": "Dense Ridge penalty search",
+  "description": "This experiment expands the penalty search for the stock-level Ridge return model. Instead of the original six penalties, it searches a broad grid containing small positive values and integers 1\u201310,000, refines the region around the historical validation minimum, and applies a fixed boundary-extension rule. The selected penalty minimizes stock-return prediction error in the completed historical training window. Predictor preprocessing, the 120-month rolling history, the covariance model and portfolio allocation rules remain unchanged.",
+  "method": {
+    "parameters": [
+      "Integers1..10000 plus1000log-spaced subunit values1e-8..1 and original six;10000-point local refinement.",
+      "Boundary extension by two decades, at most three times, floor1e-12; historical mean fold prediction MSE chooses lambda."
+    ],
+    "unchanged": "Original Ridge preprocessing,120-month history/five blocks, risk and decile/Markowitz rules.",
+    "limits": [
+      "Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.",
+      "Ordinary Ridge uses n*lambda and an unpenalized intercept. Dense numerical coverage is not statistical precision."
+    ]
+  },
+  "rows": [
+    {
+      "model": "dense_ridge_deciles",
+      "view": "equal-weight deciles; no fixed volatility budget",
+      "control": "P01/ridge",
+      "parent_control": "P01/ridge",
+      "primary_delta": {
+        "mean_annual": -0.0004889953416783444,
+        "volatility_annual": -0.0025117679096346157,
+        "sharpe_annual": 0.007235982401227803
+      },
+      "parent_delta": {
+        "mean_annual": -0.0004889953416783444,
+        "volatility_annual": -0.0025117679096346157,
+        "sharpe_annual": 0.007235982401227803
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.14131581635243573,
+        "volatility_annual": 0.18919138002426159,
+        "sharpe_annual": 0.7469463795565825,
+        "maximum_drawdown": 0.5334848836866899,
+        "gross_leverage": 1.9999999999999982,
+        "maximum_absolute_net_weight": 5.377642775528102e-17,
+        "turnover_monthly": 1.4195745549294534,
+        "prediction_mse": 0.017863608175137706,
+        "prediction_r2_zero": 0.002997287336518384,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "dense_ridge_markowitz",
+      "view": "ORIGINAL covariance10% Markowitz",
+      "control": "P01/markowitz_ridge",
+      "parent_control": "P01/markowitz_ridge",
+      "primary_delta": {
+        "mean_annual": -0.0034750587030282776,
+        "volatility_annual": 0.002703519114272135,
+        "sharpe_annual": -0.0667054569880623
+      },
+      "parent_delta": {
+        "mean_annual": -0.0034750587030282776,
+        "volatility_annual": 0.002703519114272135,
+        "sharpe_annual": -0.0667054569880623
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.28757172145159965,
+        "volatility_annual": 0.13878081752633822,
+        "sharpe_annual": 2.0721287464459808,
+        "maximum_drawdown": 0.4613754145197142,
+        "gross_leverage": 7.919571086460673,
+        "maximum_absolute_net_weight": 2.2544093848403044,
+        "turnover_monthly": 5.7856510980227425,
+        "prediction_mse": 0.017863608175137706,
+        "prediction_r2_zero": 0.002997287336518384,
+        "trading_costs_included": false
+      }
+    }
+  ],
+  "producer_seconds": 30.456636957998853,
+  "timing_note": "Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.",
+  "summary_sha256": "bff863180caa74305ab23f84226df178950381e87236185590c3fe3174b9d1de"
+}

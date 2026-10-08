@@ -1,0 +1,63 @@
+{
+  "experiment": "P04_INHERITED",
+  "title": "All-history forecasts with inherited annual tree parameters",
+  "description": "This experiment replaces the stock forecast's rolling 120-month fitting history with all available completed history and treats observations equally. For each annual anchor it inherits the original P01 choices for XGBoost depth, leaf penalty, row sampling and column sampling, then reselects the tree count on its own expanding history. It refits the forecast model and evaluates both Factor ML deciles and Markowitz ML using unchanged original risk and allocation rules. The accepted result preserves 18 original four-thread annual fits and 16 ten-thread continuation fits. It is distinct from the unfinished original P04 search that would retune the full tree grid.",
+  "method": {},
+  "rows": [
+    {
+      "model": "factor_ml",
+      "view": "equal-weight deciles; no fixed risk budget",
+      "control": "P01/factor_ml",
+      "primary_delta": {
+        "mean_annual": 0.06575798065371685,
+        "volatility_annual": -0.033349766226676014,
+        "sharpe_annual": 0.5241782199932051
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.20906806092547225,
+        "volatility_annual": 0.17023579710039505,
+        "sharpe_annual": 1.2281086850503964,
+        "maximum_drawdown": 0.3966261569786028,
+        "gross_leverage": 1.9999999999999982,
+        "maximum_absolute_net_weight": 9.71445146547012e-17,
+        "turnover_monthly": 1.973205491447962,
+        "prediction_mse": 0.017837879270097317,
+        "prediction_r2_zero": 0.004433267563336729,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "markowitz_ml",
+      "view": "ORIGINAL covariance, estimated 10% annual budget",
+      "control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": 0.0722226012382352,
+        "volatility_annual": -0.008071218101507627,
+        "sharpe_annual": 0.6118108466142025
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.4398746195963176,
+        "volatility_annual": 0.1489383308685543,
+        "sharpe_annual": 2.953401028674945,
+        "maximum_drawdown": 0.30330932910988895,
+        "gross_leverage": 10.097436792740234,
+        "maximum_absolute_net_weight": 1.8443952730665039,
+        "turnover_monthly": 8.730154725706795,
+        "prediction_mse": 0.017837879270097317,
+        "prediction_r2_zero": 0.004433267563336729,
+        "trading_costs_included": false
+      }
+    }
+  ],
+  "producer_seconds": 9227.109721333953,
+  "timing_note": "Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate. P04 inherited preserves mixed original FOUR-thread and TEN-thread continuation work.",
+  "summary_sha256": "2a6c5ecb7aa36e581ca285c6018334054204078e29414ef96512fe5623408291"
+}

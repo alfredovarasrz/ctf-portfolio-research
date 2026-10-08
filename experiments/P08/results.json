@@ -1,0 +1,88 @@
+{
+  "experiment": "P08",
+  "title": "Broad and refined factor Ridge forecasts",
+  "description": "This experiment forecasts next month's Barra factor coefficients before mapping them into stock expected returns. It sums the original daily coefficients within each completed month, then fits a multioutput Ridge model that uses the previous completed month's 414-coordinate vector to predict the next month's vector. Annual fitting uses 120 completed target months and historical calendar folds. The forecasting penalty is chosen by actual stock-return prediction error after mapping factor forecasts through historical exposures, using the wide finite penalty grid and refinement. Current known exposures map the forecast to stocks, and the original covariance and allocation rules remain unchanged. The daily Barra regression penalty stays fixed at 0.0001; it is separate from the tuned forecasting penalty.",
+  "method": {
+    "parameters": [
+      "Monthly targets are sums of original daily factor coefficients; previous-month factor vector predicts all next-month factor coordinates.",
+      "Original120completed target-month eligibility and five calendar blocks; omit missing contiguous lags without extending the window.",
+      "Penalty minimizes actual mapped stock-return MSE, not factor MSE.",
+      "Ordinary Ridge unpenalized intercept and n*lambda; integers1..10000, subunit coverage,10000-point local refinement and fixed boundary policy."
+    ],
+    "unchanged": "Original supplied factor stream, B/F/D risk and allocation.",
+    "limits": [
+      "Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.",
+      "Linear factor aggregates are not compounded tradable factor portfolios. Positive penalty is needed for the short, high-dimensional design.",
+      "P08_SIX isolates the search-grid change from P08; no fine-grid precision claim."
+    ]
+  },
+  "rows": [
+    {
+      "model": "factor_ml",
+      "view": "equal-weight deciles; no fixed volatility budget",
+      "control": "P01/factor_ml",
+      "parent_control": "P01/factor_ml",
+      "primary_delta": {
+        "mean_annual": 0.0642737634035419,
+        "volatility_annual": -0.05244488763484484,
+        "sharpe_annual": 0.6695174352155887
+      },
+      "parent_delta": {
+        "mean_annual": 0.0642737634035419,
+        "volatility_annual": -0.05244488763484484,
+        "sharpe_annual": 0.6695174352155887
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.2075838436752973,
+        "volatility_annual": 0.15114067569222622,
+        "sharpe_annual": 1.37344790027278,
+        "maximum_drawdown": 0.49491004021859164,
+        "gross_leverage": 1.999999999999998,
+        "maximum_absolute_net_weight": 4.85722573273506e-17,
+        "turnover_monthly": 2.4758431716363525,
+        "prediction_mse": 0.01786796967475548,
+        "prediction_r2_zero": 0.002753863560785552,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "markowitz_ml",
+      "view": "ORIGINAL covariance10% Markowitz",
+      "control": "P01/markowitz_ml",
+      "parent_control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": 0.0323427261135697,
+        "volatility_annual": -0.041921004261440076,
+        "sharpe_annual": 1.1339489820180826
+      },
+      "parent_delta": {
+        "mean_annual": 0.0323427261135697,
+        "volatility_annual": -0.041921004261440076,
+        "sharpe_annual": 1.1339489820180826
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.39999474447165206,
+        "volatility_annual": 0.11508854470862184,
+        "sharpe_annual": 3.475539164078825,
+        "maximum_drawdown": 0.10254758431427724,
+        "gross_leverage": 8.623807884874092,
+        "maximum_absolute_net_weight": 0.7770985111381584,
+        "turnover_monthly": 7.5181059032049005,
+        "prediction_mse": 0.01786796967475548,
+        "prediction_r2_zero": 0.002753863560785552,
+        "trading_costs_included": false
+      }
+    }
+  ],
+  "producer_seconds": 43.39109237497905,
+  "timing_note": "Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.",
+  "summary_sha256": "71155db0e013d986bd5f62b4175390a1cccce970b60b9136e815d48247ce98b4"
+}

@@ -1,0 +1,183 @@
+{
+  "experiment": "P01",
+  "title": "Restored benchmark comparison",
+  "description": "P01 is the restored benchmark comparison that serves as the control for most experiments. It fits stock-return forecasts from all 402 ranked characteristics, using either Ridge or XGBoost, and estimates the original Barra-style covariance from characteristic and industry exposures. The saved portfolios include Ridge deciles, XGBoost deciles (Factor ML), Minimum Variance, Ridge Markowitz and XGBoost Markowitz (Markowitz ML). Forecast models are refitted annually using 120 completed target months and the benchmark's five historical calendar folds. The original six Ridge penalties and 20 XGBoost configurations are retained.",
+  "method": {
+    "parameters": [
+      "402 country/month centered percentile-ranked characteristics; missing midpoint0; raw zeros -0.5.",
+      "Annual refits on the previous120completed months; five historical calendar blocks, four train and one validate.",
+      "Ridge lambda candidates0.0001,0.001,0.01,0.1,1,10. XGBoost keeps20original configurations and two-stage tree-count selection.",
+      "Barra risk uses industry plus characteristic exposures,2520daily observations for F, exponential correlation/variance half-lives504/84days, and separate specific-risk estimation."
+    ],
+    "unchanged": "Original corrected Python benchmark methodology is the parent.",
+    "limits": [
+      "Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.",
+      "Markowitz has10% predicted annual volatility; native minimum variance has weights summing to1. Factor ML equal-weights each selected long/short side; it does not use Barra allocation."
+    ]
+  },
+  "rows": [
+    {
+      "model": "ridge",
+      "view": "equal-weight deciles; no fixed volatility budget",
+      "control": "baseline control",
+      "parent_control": "P01/ridge",
+      "primary_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "parent_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.14180481169411407,
+        "volatility_annual": 0.1917031479338962,
+        "sharpe_annual": 0.7397103971553547,
+        "maximum_drawdown": 0.5462414495777278,
+        "gross_leverage": 1.9999999999999982,
+        "maximum_absolute_net_weight": 5.377642775528102e-17,
+        "turnover_monthly": 1.4327526762557419,
+        "prediction_mse": 0.017864775587847517,
+        "prediction_r2_zero": 0.0029321317628476784,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "factor_ml",
+      "view": "equal-weight deciles; no fixed volatility budget",
+      "control": "baseline control",
+      "parent_control": "P01/factor_ml",
+      "primary_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "parent_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.1433100802717554,
+        "volatility_annual": 0.20358556332707106,
+        "sharpe_annual": 0.7039304650571913,
+        "maximum_drawdown": 0.5915207946020113,
+        "gross_leverage": 1.9999999999999987,
+        "maximum_absolute_net_weight": 2.796374243274613e-15,
+        "turnover_monthly": 1.6060222628505203,
+        "prediction_mse": 0.017858480446386764,
+        "prediction_r2_zero": 0.003283475850303974,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "minimum_variance",
+      "view": "native net-one MVP",
+      "control": "baseline control",
+      "parent_control": "P01/minimum_variance",
+      "primary_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "parent_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.0923901084037031,
+        "volatility_annual": 0.09741182330078779,
+        "sharpe_annual": 0.9484486099641245,
+        "maximum_drawdown": 0.2525759628344054,
+        "gross_leverage": 4.368120880668365,
+        "maximum_absolute_net_weight": 1.0000000000000036,
+        "turnover_monthly": 3.0908474107352135,
+        "prediction_mse": null,
+        "prediction_r2_zero": null,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "markowitz_ridge",
+      "view": "ORIGINAL covariance10% Markowitz",
+      "control": "baseline control",
+      "parent_control": "P01/markowitz_ridge",
+      "primary_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "parent_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.2910467801546279,
+        "volatility_annual": 0.1360772984120661,
+        "sharpe_annual": 2.138834203434043,
+        "maximum_drawdown": 0.3838064294171051,
+        "gross_leverage": 7.9365489385096755,
+        "maximum_absolute_net_weight": 2.24744188793188,
+        "turnover_monthly": 5.7881404858998176,
+        "prediction_mse": 0.017864775587847517,
+        "prediction_r2_zero": 0.0029321317628476784,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "markowitz_ml",
+      "view": "ORIGINAL covariance10% Markowitz",
+      "control": "baseline control",
+      "parent_control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "parent_delta": {
+        "mean_annual": 0.0,
+        "volatility_annual": 0.0,
+        "sharpe_annual": 0.0
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.36765201835808237,
+        "volatility_annual": 0.15700954897006192,
+        "sharpe_annual": 2.3415901820607425,
+        "maximum_drawdown": 0.3040612413066942,
+        "gross_leverage": 9.660063853707117,
+        "maximum_absolute_net_weight": 2.2913494475990817,
+        "turnover_monthly": 7.750182883613689,
+        "prediction_mse": 0.017858480446386764,
+        "prediction_r2_zero": 0.003283475850303974,
+        "trading_costs_included": false
+      }
+    }
+  ],
+  "producer_seconds": 3253.6134718329995,
+  "timing_note": "Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.",
+  "summary_sha256": "a30bd339b9ab55f6bbaf5057b14d6c8b5d5c1a498a0b98bff9237ece332a85a7"
+}

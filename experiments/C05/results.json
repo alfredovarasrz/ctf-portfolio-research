@@ -1,0 +1,54 @@
+{
+  "experiment": "C05",
+  "title": "Minimum-variance industry sleeves",
+  "description": "This experiment uses the same industry-contained, net-zero Markowitz portfolios as C04, but chooses their combination weights to minimize estimated portfolio variance. Those industry coefficients must be nonnegative and sum to one, and the final stock portfolio is rescaled to 10% estimated annual risk. The optimization retains covariance between industries. It tests the combination of industry portfolios, not the benchmark Minimum Variance strategy that invests directly in stocks with net weight one.",
+  "method": {
+    "parameters": [
+      "Each active sleeve starts at10% standalone original predicted annual risk; cross-sleeve covariance is retained.",
+      "Outer coefficients are nonnegative and sum to1; combined portfolio is then scaled to10% original predicted annual risk.",
+      "Absent/one-stock/zero-direction industries are inactive."
+    ],
+    "unchanged": "Original XGBoost forecasts and original stock risk; common local sleeve construction across C04/C05/C06.",
+    "limits": [
+      "Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.",
+      "C05 is minimum risk across neutral sleeves, not native stock-net-one MVP. Industry-sleeve optimization differs from C01 joint constraints."
+    ]
+  },
+  "rows": [
+    {
+      "model": "minimum_sleeves",
+      "view": "industry-contained net-zero sleeves; final ORIGINAL covariance10%",
+      "control": "P01/markowitz_ml; C01 joint industry constraint is secondary",
+      "parent_control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": -0.1227279436431839,
+        "volatility_annual": -0.042043690859823776,
+        "sharpe_annual": -0.21118313129923427
+      },
+      "parent_delta": {
+        "mean_annual": -0.1227279436431839,
+        "volatility_annual": -0.042043690859823776,
+        "sharpe_annual": -0.21118313129923427
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.24492407471489847,
+        "volatility_annual": 0.11496585811023814,
+        "sharpe_annual": 2.1304070507615083,
+        "maximum_drawdown": 0.2812194868159015,
+        "gross_leverage": 6.397065684155653,
+        "maximum_absolute_net_weight": 1.7763568394002505e-15,
+        "turnover_monthly": 4.793346081415158,
+        "prediction_mse": 0.017858480446386764,
+        "prediction_r2_zero": 0.003283475850303974,
+        "trading_costs_included": false
+      }
+    }
+  ],
+  "producer_seconds": 9.31190637499094,
+  "timing_note": "Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.",
+  "summary_sha256": "aa12acd2eefb26bcded62e46adccff5d72c2df78fb4c1545ba604c03543c77bf"
+}

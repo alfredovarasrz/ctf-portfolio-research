@@ -1,0 +1,63 @@
+{
+  "experiment": "P05_EXPANDING_INHERITED",
+  "title": "All-history hyperbolic fitting weights with inherited tree parameters",
+  "description": "This experiment uses all available completed stock-forecast history, like P04_INHERITED, but discounts older training observations with hyperbolic age weights. It inherits the original P01 depth, leaf penalty and sampling settings, then historically selects the age-weight parameter from 12, 36, 60 and 120 months and reselects the tree count on its own history. Factor ML deciles and Markowitz ML use the rebuilt forecasts with the original risk model and allocation rules. It differs from the rolling-history P05 experiment and from the unfinished original expanding full-grid search.",
+  "method": {},
+  "rows": [
+    {
+      "model": "factor_ml",
+      "view": "equal-weight deciles; no fixed risk budget",
+      "control": "P01/factor_ml",
+      "primary_delta": {
+        "mean_annual": 0.0341747585305755,
+        "volatility_annual": -0.01728641377443524,
+        "sharpe_annual": 0.24875686190339386
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.1774848388023309,
+        "volatility_annual": 0.18629914955263582,
+        "sharpe_annual": 0.9526873269605851,
+        "maximum_drawdown": 0.4411796928378693,
+        "gross_leverage": 1.9999999999999982,
+        "maximum_absolute_net_weight": 1.0304257447302234e-15,
+        "turnover_monthly": 1.7833414633026805,
+        "prediction_mse": 0.017859847529063912,
+        "prediction_r2_zero": 0.003207176307446269,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "markowitz_ml",
+      "view": "ORIGINAL covariance, estimated 10% annual budget",
+      "control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": 0.05653054321171358,
+        "volatility_annual": -0.001287687408610766,
+        "sharpe_annual": 0.38238548401748806
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.42418256156979595,
+        "volatility_annual": 0.15572186156145115,
+        "sharpe_annual": 2.7239756660782306,
+        "maximum_drawdown": 0.3448655292696624,
+        "gross_leverage": 9.890436884656859,
+        "maximum_absolute_net_weight": 1.7865882715836487,
+        "turnover_monthly": 8.154367463587661,
+        "prediction_mse": 0.017859847529063912,
+        "prediction_r2_zero": 0.003207176307446269,
+        "trading_costs_included": false
+      }
+    }
+  ],
+  "producer_seconds": 16505.11736708309,
+  "timing_note": "Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.",
+  "summary_sha256": "7fb56c750cad0d44b3effd463e7f712bb79352b004736e2c2cbb47b154f5eeba"
+}

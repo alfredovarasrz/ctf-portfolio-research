@@ -1,0 +1,117 @@
+{
+  "experiment": "T07_RISK",
+  "title": "Industry median risk preprocessing",
+  "description": "This experiment uses the same country/month/industry median hierarchy as T07, but only for missing risk-characteristic exposures. It preserves original ranking, observed zeros, minimum observations and constant-column handling, then consistently rebuilds daily factors, residuals and risk covariance. Stock forecasts remain original. It separates industry-aware risk imputation from the predictor-imputation experiment T07.",
+  "method": {
+    "parameters": [
+      "Country/month/FF12industry median then country/month/zero fallback.",
+      "Preserve rawzero-0.5, country/month rank groups, minimum10observations and constant-zero policy."
+    ],
+    "unchanged": "Original P01 XGBoost forecasts/preprocessing and original validation/allocation; B/f/residual/F/D rebuild only follows the exposure change.",
+    "limits": [
+      "Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.",
+      "Independent from T04/T07 predictor median cells; no accumulated imputation change."
+    ]
+  },
+  "rows": [
+    {
+      "model": "minimum_variance_native",
+      "view": "native net-one MVP",
+      "control": "P01/minimum_variance",
+      "parent_control": "P01/minimum_variance",
+      "primary_delta": {
+        "mean_annual": 0.0003695761816882581,
+        "volatility_annual": 0.0038903627553271286,
+        "sharpe_annual": -0.03277553126068533
+      },
+      "parent_delta": {
+        "mean_annual": 0.0003695761816882581,
+        "volatility_annual": 0.0038903627553271286,
+        "sharpe_annual": -0.03277553126068533
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.09275968458539136,
+        "volatility_annual": 0.10130218605611492,
+        "sharpe_annual": 0.9156730787034392,
+        "maximum_drawdown": 0.28193712447062746,
+        "gross_leverage": 4.441620914457389,
+        "maximum_absolute_net_weight": 1.0000000000000038,
+        "turnover_monthly": 2.9939710837710467,
+        "prediction_mse": 0.017858480446386764,
+        "prediction_r2_zero": 0.003283475850303974,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "markowitz_xgboost_native",
+      "view": "variant covariance10%",
+      "control": "P01/markowitz_ml",
+      "parent_control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": 0.0030302478598644433,
+        "volatility_annual": 0.0009046148843614155,
+        "sharpe_annual": 0.005775356091164419
+      },
+      "parent_delta": {
+        "mean_annual": 0.0030302478598644433,
+        "volatility_annual": 0.0009046148843614155,
+        "sharpe_annual": 0.005775356091164419
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.3706822662179468,
+        "volatility_annual": 0.15791416385442333,
+        "sharpe_annual": 2.347365538151907,
+        "maximum_drawdown": 0.2977699227957826,
+        "gross_leverage": 9.757411941839518,
+        "maximum_absolute_net_weight": 2.2947869693181477,
+        "turnover_monthly": 7.744011957861433,
+        "prediction_mse": 0.017858480446386764,
+        "prediction_r2_zero": 0.003283475850303974,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "markowitz_xgboost_reference",
+      "view": "ORIGINAL covariance10%",
+      "control": "P01/markowitz_ml",
+      "parent_control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": -0.010484909523081898,
+        "volatility_annual": -0.006154536542589795,
+        "sharpe_annual": 0.026028255587915883
+      },
+      "parent_delta": {
+        "mean_annual": -0.010484909523081898,
+        "volatility_annual": -0.006154536542589795,
+        "sharpe_annual": 0.026028255587915883
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.35716710883500047,
+        "volatility_annual": 0.15085501242747212,
+        "sharpe_annual": 2.3676184376486584,
+        "maximum_drawdown": 0.26988639469861164,
+        "gross_leverage": 9.291369400201729,
+        "maximum_absolute_net_weight": 2.2630489555131237,
+        "turnover_monthly": 7.416050075073165,
+        "prediction_mse": 0.017858480446386764,
+        "prediction_r2_zero": 0.003283475850303974,
+        "trading_costs_included": false
+      }
+    }
+  ],
+  "producer_seconds": 304.14703812496737,
+  "timing_note": "Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.",
+  "summary_sha256": "daf48dba9919ec3cff8efe2d5af4fa330d41a690fdf2160e7e2b19323ab4a584"
+}

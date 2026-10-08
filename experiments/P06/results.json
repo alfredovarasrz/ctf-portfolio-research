@@ -1,0 +1,85 @@
+{
+  "experiment": "P06",
+  "title": "Three-month bagged forecasts",
+  "description": "This experiment tests bagging, a form of averaging models fitted to resampled historical data. It creates five XGBoost training samples using circular three-month blocks, keeping each month's complete stock cross-section together, fits a model to each sample and averages their predictions. It uses seed 1 and inherits the original annual XGBoost configuration and tree count rather than repeating that search. The original rolling history, preprocessing, covariance and portfolio allocation remain fixed.",
+  "method": {
+    "parameters": [
+      "Five bags; circular three-month blocks; whole stock cross-sections remain together; seed1.",
+      "Reuse original P01 selected tree configuration and tree count; no extra unchanged hyperparameter search."
+    ],
+    "unchanged": "Original120-month eligibility, predictor preprocessing, risk and allocation.",
+    "limits": [
+      "Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.",
+      "Five fitted bags are a small ensemble, distinct from the1000-draw inference exercises."
+    ]
+  },
+  "rows": [
+    {
+      "model": "factor_ml",
+      "view": "equal-weight deciles; no fixed volatility budget",
+      "control": "P01/factor_ml",
+      "parent_control": "P01/factor_ml",
+      "primary_delta": {
+        "mean_annual": 0.01654301220197621,
+        "volatility_annual": 0.007286352669709423,
+        "sharpe_annual": 0.05412729582630249
+      },
+      "parent_delta": {
+        "mean_annual": 0.01654301220197621,
+        "volatility_annual": 0.007286352669709423,
+        "sharpe_annual": 0.05412729582630249
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.1598530924737316,
+        "volatility_annual": 0.21087191599678048,
+        "sharpe_annual": 0.7580577608834937,
+        "maximum_drawdown": 0.5466524797889387,
+        "gross_leverage": 1.9999999999999982,
+        "maximum_absolute_net_weight": 1.6618650899857812e-15,
+        "turnover_monthly": 1.6982192817490291,
+        "prediction_mse": 0.017852526320906677,
+        "prediction_r2_zero": 0.003615787172685514,
+        "trading_costs_included": false
+      }
+    },
+    {
+      "model": "markowitz_ml",
+      "view": "ORIGINAL covariance10% Markowitz",
+      "control": "P01/markowitz_ml",
+      "parent_control": "P01/markowitz_ml",
+      "primary_delta": {
+        "mean_annual": -0.011729580641794524,
+        "volatility_annual": -0.0010620694805726083,
+        "sharpe_annual": -0.05926770476622112
+      },
+      "parent_delta": {
+        "mean_annual": -0.011729580641794524,
+        "volatility_annual": -0.0010620694805726083,
+        "sharpe_annual": -0.05926770476622112
+      },
+      "metrics": {
+        "return_start": "1990-01-31",
+        "return_end": "2023-12-31",
+        "months": 408,
+        "weight_rows": 885698,
+        "mean_annual": 0.35592243771628784,
+        "volatility_annual": 0.1559474794894893,
+        "sharpe_annual": 2.2823224772945214,
+        "maximum_drawdown": 0.31554480622317505,
+        "gross_leverage": 9.732302609647627,
+        "maximum_absolute_net_weight": 2.164072900431633,
+        "turnover_monthly": 8.088981368674618,
+        "prediction_mse": 0.017852526320906677,
+        "prediction_r2_zero": 0.003615787172685514,
+        "trading_costs_included": false
+      }
+    }
+  ],
+  "producer_seconds": 1075.5419473340153,
+  "timing_note": "Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk estimates and excludes upstream fits, checks and review; it is not a cold end-to-end runtime estimate.",
+  "summary_sha256": "60e812cc910df1cf627349be3469bb81dcac46a4f68187ee5b4d2518230aabda"
+}
