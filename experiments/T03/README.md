@@ -25,7 +25,7 @@ These are the principal implementation files currently staged for this experimen
 - [baseline.py](../../src/baseline.py): Monthly predictor preprocessing, historical stock Ridge fitting and decile allocation.
 - [research_risk.py](../../src/research_risk.py): Risk-artifact construction and allocation using saved risk estimates.
 
-The percentile transformation of forecasts step currently resides in the original local `run_batch_experiment.py` runner. Its simple public entry point has not yet been extracted; the files linked above supply the surrounding forecast and allocation functions.
+The public [run script](code/run.py) fits the stock-return models, percentile-ranks their forecasts within each country and month, and applies the decile and Markowitz allocation rules using the shared functions above.
 
 Historical model-parameter validation remains part of the scientific implementation. Separate correctness checks, numerical verifiers and operational schedulers are excluded.
 

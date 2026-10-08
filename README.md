@@ -8,7 +8,7 @@ This repository contains research for the Common Task Framework portfolio-model 
 
 This repository includes the self-contained final model, final PDF write-up, saved results and shared scientific code with complete local dependencies. All 46 experiment folders have runnable local entry points and execution instructions.
 
-The research follows the competition host's supplied R implementations of Minimum Variance, Factor ML and Markowitz ML, translated into Python. Ridge Markowitz adapts the supplied Markowitz allocation to stock-level Ridge forecasts. Only the permitted stock-characteristic, feature-list and daily-return tables enter the models. Historical performance is evaluated from January 1990 through December 2023, with earlier available data used for estimation. The input `ctff_test` flags determine the evaluation observations; the final model must not assume that every future dataset has the same dates.
+The research follows the Minimum Variance, Factor ML and Markowitz ML R benchmarks supplied by the competition hosts, Global Factor Data / JKP Factors, translated into Python. Ridge Markowitz adapts the supplied Markowitz allocation to stock-level Ridge forecasts. Only the permitted stock-characteristic, feature-list and daily-return tables enter the models. Historical performance is evaluated from January 1990 through December 2023, with earlier available data used for estimation. The input `ctff_test` flags determine the evaluation observations; the final model must not assume that every future dataset has the same dates.
 
 ## Research approach
 
@@ -45,12 +45,13 @@ The selected strategy is **P08-only + C02 regular + R08 expanding variance**, sa
 
 | Path | What it contains |
 | --- | --- |
+| [Factor Forecasting and Regularized Portfolio Allocation.pdf](Factor%20Forecasting%20and%20Regularized%20Portfolio%20Allocation.pdf) | Final methodology paper |
 | [experiments/](experiments/) | One folder per experiment, containing its README, saved `results.json` and a runnable `code/` subfolder |
 | [src/](src/README.md) | Shared Python source code for model calculations, historical parameter selection and performance measurement |
 | [results/](results/README.md) | Consolidated saved results, including [the portfolio CSV](results/portfolio_results.csv) and experiment JSON |
 | [submission/](submission/README.md) | The selected strategy's self-contained [model.py](submission/model.py), pinned dependencies and verified [final portfolio weights CSV](submission/weights.csv) |
 
-The final [PDF write-up](submission/Alfredo%20Vara%20-%20PS3.pdf), **Factor Forecasting and Regularized Portfolio Allocation**, is available in `submission/` alongside the model, dependencies and final portfolio weights. The large internal research reports are excluded. Robustness notes are summarized below, so there is no separate `docs` folder.
+The final [PDF write-up](Factor%20Forecasting%20and%20Regularized%20Portfolio%20Allocation.pdf), **Factor Forecasting and Regularized Portfolio Allocation**, sits at the repository’s top level beside this README. The model, dependencies and final portfolio weights are in `submission/`. The large internal research reports are excluded. Robustness notes are summarized below, so there is no separate `docs` folder.
 
 Each experiment's run script uses the relevant common functions in `src/`.
 The selected combined strategy's [research entry point](experiments/P08_C021_R08V1/code/run.py)
@@ -102,6 +103,10 @@ Each run reads the supplied tables and fits its own models. Use a separate outpu
 The scripts and their shared dependencies run without the private research repository. Each entry point has passed bounded execution on supplied historical data. The 38 newly packaged scripts also pass future-data removal checks. Their scientific functions and settings are reconciled with the original research code. Existing results cover 46 experiment folders and 138 scalar portfolio records. The cleanup preserves those results; bounded checks do not constitute fresh full-period reproduction.
 
 The contest entry point is [submission/model.py](submission/model.py), with [its separate requirements](submission/requirements.txt). It receives the three Pandas tables and returns weights. Only that self-contained script is prepared for contest execution. The research scripts' local file reading, caching and performance evaluation are not part of the contest entry point. See the [official rules](https://jkpfactors.com/ctf/rules). No contest upload or acceptance is claimed.
+
+## Benchmark attribution
+
+The original Minimum Variance, Factor ML and Markowitz ML benchmark implementations are attributed to the competition hosts, [Global Factor Data / JKP Factors](https://jkpfactors.com/), which supplied them through the [Common Task Framework](https://jkpfactors.com/ctf). We translated their R implementations into Python, retaining their core preprocessing, historical parameter selection, covariance estimation and portfolio-construction methods as reference models. Ridge Markowitz is our adaptation of the supplied Markowitz construction using stock-level Ridge forecasts. The experiment extensions and selected combined strategy build on these host-provided benchmarks.
 
 ## Interpretation
 

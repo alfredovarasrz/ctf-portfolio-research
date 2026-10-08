@@ -21,10 +21,11 @@ Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk e
 
 These are the principal implementation files currently staged for this experiment. Shared preprocessing, benchmark risk and performance calculations also use [baseline.py](../../src/baseline.py), [comparison_models.py](../../src/comparison_models.py) and [evaluate_baseline.py](../../src/evaluate_baseline.py), as applicable. All shared Python dependencies are packaged in `src`; [the source index](../../src/source-index.json) records the import graph and source hashes.
 
+- [wide_allocation.py](../../src/wide_allocation.py): Broad and refined penalty selection from completed historical candidate outcomes.
 - [spectral_allocation_path.py](../../src/spectral_allocation_path.py): Efficient computation of broad C02 allocation-penalty paths.
 - [batch_allocations.py](../../src/batch_allocations.py): Industry-neutral optimization and the regular C02 diagonal-penalty allocation with historical payoff-bank selection.
 
-The broad-search orchestration currently resides in the original local `wide_allocation.py` module. It has not yet been separated from private runner dependencies for publication. The linked spectral module supplies the efficient penalty-path calculations.
+The public [run script](code/run.py) fits the benchmark forecasts and risk estimates, then calls the broad-search allocation functions. It runs with the packaged shared code and the three supplied tables.
 
 Historical model-parameter validation remains part of the scientific implementation. Separate correctness checks, numerical verifiers and operational schedulers are excluded.
 

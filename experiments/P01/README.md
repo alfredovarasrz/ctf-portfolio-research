@@ -4,6 +4,8 @@
 
 P01 is the restored benchmark comparison that serves as the control for most experiments. It fits stock-return forecasts from all 402 ranked characteristics, using either Ridge or XGBoost, and estimates the original Barra-style covariance from characteristic and industry exposures. The saved portfolios include Ridge deciles, XGBoost deciles (Factor ML), Minimum Variance, Ridge Markowitz and XGBoost Markowitz (Markowitz ML). Forecast models are refitted annually using 120 completed target months and the benchmark's five historical calendar folds. The original six Ridge penalties and 20 XGBoost configurations are retained.
 
+The original Minimum Variance, Factor ML and Markowitz ML R benchmarks are attributed to the competition hosts, [Global Factor Data / JKP Factors](https://jkpfactors.com/). This comparison uses their Python translations; Ridge Markowitz adapts the supplied Markowitz allocation to stock-level Ridge forecasts.
+
 ## Saved results
 
 | Portfolio | Scaling/view | Control | Sharpe | Delta Sharpe | Max drawdown |

@@ -4,6 +4,8 @@
 
 Experiment folders link to the principal files for their methods. Common calculations remain here so multiple experiments can use one implementation.
 
+The original Minimum Variance, Factor ML and Markowitz ML R benchmarks are attributed to the competition hosts, [Global Factor Data / JKP Factors](https://jkpfactors.com/). Their Python translations provide the shared reference calculations. See [the benchmark attribution](../README.md#benchmark-attribution) for the relationship between these benchmarks and our extensions.
+
 | File | Role |
 | --- | --- |
 | [artifact_utils.py](artifact_utils.py) | Writing JSON records and hashing generated research files. |

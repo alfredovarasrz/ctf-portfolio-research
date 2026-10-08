@@ -2,9 +2,9 @@
 
 [model.py](model.py) implements the selected **P08-only + C02 regular + R08 expanding variance** strategy (`P08_C021_R08V1`). It is one self-contained Python file. Every scientific function it needs is included in that file; it imports standard Python and installed scientific packages, without calling any experiment or shared-source files.
 
-The file follows the supplied benchmarks' libraries/settings, utilities, portfolio construction and `main` structure. [requirements.txt](requirements.txt) pins the model dependencies and their transitive dependencies, with package hashes, for Python 3.13.
+The original benchmark preprocessing and Barra-style risk methods are attributed to the competition hosts, [Global Factor Data / JKP Factors](https://jkpfactors.com/). The file follows their supplied R benchmarks’ libraries/settings, utilities, portfolio construction and `main` structure. [requirements.txt](requirements.txt) pins the model dependencies and their transitive dependencies, with package hashes, for Python 3.13.
 
-The final [PDF write-up](Alfredo%20Vara%20-%20PS3.pdf) accompanies the model, dependencies and saved weights in this folder.
+The final [PDF write-up](../Factor%20Forecasting%20and%20Regularized%20Portfolio%20Allocation.pdf) is at the repository’s top level. This folder contains the model, dependencies and saved weights.
 
 ## Saved final portfolio weights
 
@@ -55,4 +55,4 @@ A fresh full-period run of the SIC-corrected file from the three current raw tab
 
 The earlier real 123-month pandas check also passed with only the ten pinned public runtime packages visible and Ibis absent. This used the installed distributions in an isolated environment, rather than a clean network installation. The synthetic local example passed in that environment. The current source is 33,666 bytes, has six explicit error checks and contains no file, network, shell or dynamic-execution calls.
 
-These local checks do not constitute competition acceptance. The competition applies its own execution and dependency/security checks. The model is published in this GitHub repository; no contest submission has occurred. The research execution entry point remains a separate packaging task in [the experiment's code folder](../experiments/P08_C021_R08V1/code/README.md).
+These local checks do not constitute competition acceptance. The competition applies its own execution and dependency/security checks. The model is published in this GitHub repository; no contest submission has occurred. The runnable research entry point is available in [the experiment's code folder](../experiments/P08_C021_R08V1/code/README.md), with local performance evaluation kept outside the contest model.
