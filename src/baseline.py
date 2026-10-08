@@ -1,7 +1,7 @@
 """First CTF baseline: benchmark preprocessing, ridge forecasts, decile portfolios.
 
 Structure and preprocessing follow the supplied Factor ML, Markowitz ML, and
-Minimum Variance R submissions by Theis Ingerslev Jensen. See BASELINE.md.
+Minimum Variance R submissions by Theis Ingerslev Jensen. See the source README for the public implementation guide.
 This file is self-contained; main() uses only its supplied dataframes.
 """
 

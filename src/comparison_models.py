@@ -2,7 +2,7 @@
 
 Shared monthly forecasting and Barra-style risk estimation. Local runners stage
 Parquet separately; model logic uses only supplied frames and numerical arrays.
-The original ridge baseline remains unchanged. See COMPARISON_MODELS.md.
+The original ridge baseline remains unchanged. See the source README for benchmark methods and dependencies.
 """
 from collections import deque
 from dataclasses import dataclass

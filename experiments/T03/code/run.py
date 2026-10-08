@@ -32,7 +32,7 @@ def main(args):
         _, markowitz, _ = allocate_from_risk_artifacts(risk, prediction, settings=settings)
         statistics[name + '_deciles'] = save_portfolio(args.output, name + '_deciles', deciles, None, metadata)
         statistics[name + '_markowitz'] = save_portfolio(args.output, name + '_markowitz', markowitz, None, metadata)
-    
+
     save_results(args.output, 'T03', statistics, fits)
 
 
