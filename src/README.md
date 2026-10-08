@@ -42,4 +42,4 @@ This source tree is not yet independently runnable. Some modules import scientif
 
 Historical parameter validation is part of the models and remains included. Correctness tests, numerical verifiers, fixtures, operational schedulers and monitoring helpers are excluded.
 
-The selected strategy's self-contained contest entry point and pinned dependencies are available in [submission/](../submission/README.md). They do not depend on these research snapshots. The current [paper draft](../Portfolio_Model_Writeup_Draft.docx) is at the repository top level.
+The selected strategy's self-contained contest entry point and pinned dependencies are available in [submission/](../submission/README.md). They do not depend on these research snapshots. The final [PDF write-up](../submission/Alfredo%20Vara%20-%20PS3.pdf) is in the submission folder.

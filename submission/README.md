@@ -4,6 +4,8 @@
 
 The file follows the supplied benchmarks' libraries/settings, utilities, portfolio construction and `main` structure. [requirements.txt](requirements.txt) pins the model dependencies and their transitive dependencies, with package hashes, for Python 3.13.
 
+The final [PDF write-up](Alfredo%20Vara%20-%20PS3.pdf) accompanies the model, dependencies and saved weights in this folder.
+
 ## Saved final portfolio weights
 
 [weights.csv](weights.csv) contains the selected strategy's verified final
