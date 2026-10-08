@@ -38,7 +38,7 @@ Experiment folders link to the principal files for their methods. Common calcula
 
 ## Preparation status
 
-This source tree is not yet independently runnable. Some modules import scientific functions from local runners that also contain private execution machinery. Those dependencies must be separated when preparing the public entry points. The remaining imports and snapshot hashes are listed in [source-index.json](source-index.json). Staged source versions also need reconciliation with each completed run before release.
+This source tree is not yet independently runnable. Some modules import scientific functions from local runners that also contain private execution machinery. Those dependencies must be separated when preparing the public entry points. The remaining imports and snapshot hashes are listed in [source-index.json](source-index.json). These research snapshots also need version reconciliation with each completed run before they form a complete reproduction package.
 
 Historical parameter validation is part of the models and remains included. Correctness tests, numerical verifiers, fixtures, operational schedulers and monitoring helpers are excluded.
 

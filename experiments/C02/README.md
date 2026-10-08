@@ -37,4 +37,4 @@ Historical model-parameter validation remains part of the scientific implementat
 - q penalizes weight size, not transaction cost or turnover. Its objective is portfolio performance/risk, not forecasting MSE.
 - The completed grid is finite; outer Sharpe cannot justify model adoption.
 
-Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Public release requires source-version reconciliation, attribution review and final packaging.
+Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Per-experiment source-version reconciliation and execution packaging remain pending in this initial research publication.

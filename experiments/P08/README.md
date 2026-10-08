@@ -38,4 +38,4 @@ Historical model-parameter validation remains part of the scientific implementat
 - Linear factor aggregates are not compounded tradable factor portfolios. Positive penalty is needed for the short, high-dimensional design.
 - P08_SIX isolates the search-grid change from P08; no fine-grid precision claim.
 
-Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Public release requires source-version reconciliation, attribution review and final packaging.
+Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Per-experiment source-version reconciliation and execution packaging remain pending in this initial research publication.

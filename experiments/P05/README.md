@@ -36,4 +36,4 @@ Historical model-parameter validation remains part of the scientific implementat
 - This completed cell is rolling-window weighting, not expanding-plus-weighting.
 - Saved execution_seconds includes human process pauses and should not be presented as CPU time or uninterrupted runtime.
 
-Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Public release requires source-version reconciliation, attribution review and final packaging.
+Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Per-experiment source-version reconciliation and execution packaging remain pending in this initial research publication.
