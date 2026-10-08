@@ -19,7 +19,7 @@ Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk e
 
 ## Code used by this experiment
 
-These are the principal implementation files currently staged for this experiment. Shared preprocessing, benchmark risk and performance calculations also use [baseline.py](../../src/baseline.py), [comparison_models.py](../../src/comparison_models.py) and [evaluate_baseline.py](../../src/evaluate_baseline.py), as applicable. The full standalone execution package is still being prepared; remaining private-runner imports are listed in [the source index](../../src/source-index.json).
+These are the principal implementation files currently staged for this experiment. Shared preprocessing, benchmark risk and performance calculations also use [baseline.py](../../src/baseline.py), [comparison_models.py](../../src/comparison_models.py) and [evaluate_baseline.py](../../src/evaluate_baseline.py), as applicable. All shared Python dependencies are packaged in `src`; [the source index](../../src/source-index.json) records the import graph and source hashes.
 
 - [tuned_risk_decay.py](../../src/tuned_risk_decay.py): Historical selection of hyperbolic correlation or variance decay within a rolling window.
 - [extended_risk.py](../../src/extended_risk.py): Historical covariance weighting and shared risk transformations.
@@ -37,4 +37,4 @@ Historical model-parameter validation remains part of the scientific implementat
 - Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.
 - h is the age at half current observation weight for a hyperbola, not an exponential half-life. Correlation and variance cells never change both decay components together.
 
-Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Per-experiment source-version reconciliation and execution packaging remain pending in this initial research publication.
+Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Entry-point packaging and per-run source-version reconciliation remain pending where not identified below.

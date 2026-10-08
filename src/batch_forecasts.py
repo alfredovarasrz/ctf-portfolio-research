@@ -2,7 +2,6 @@
 from hashlib import sha256
 from pathlib import Path
 
-import numpy as np
 import polars as pl
 from threadpoolctl import threadpool_limits
 

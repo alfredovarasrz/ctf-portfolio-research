@@ -168,7 +168,7 @@ def forecast_family(chars,names,variant,risk,checkpoint,identity,settings=FORECA
     """Annual coefficient fits, current monthly exposures/observed lags, all test keys."""
     from hashlib import sha256
     from baseline import MonthlySource
-    from research_resources import write_json
+    from artifact_utils import write_json
     if variant not in SPECIFICATIONS: raise ValueError('Only declared tuned factor variants supported')
     source=MonthlySource(chars,names);metadata=source.metadata
     tests=sorted(metadata.filter(pl.col('ctff_test'))['eom_ret'].unique().to_list())

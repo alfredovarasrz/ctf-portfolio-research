@@ -11,7 +11,6 @@ from time import perf_counter
 import gc
 
 import numpy as np
-import pandas as pd
 import polars as pl
 from scipy.linalg import cho_factor, cho_solve
 from threadpoolctl import threadpool_limits
@@ -264,7 +263,9 @@ def ff12_class(sic):
             ('Telcm',[(4800,4899)]),('Utils',[(4900,4949)]),
             ('Shops',[(5000,5999),(7200,7299),(7600,7699)]),
             ('Hlth',[(2830,2839),(3693,3693),(3840,3859),(8000,8099)]),('Money',[(6000,6999)])]
-    values=np.array([int(v) if v is not None and str(v).isdigit() else -1 for v in sic])
+    values = pl.Series('sic', sic).cast(pl.Float64, strict=False).fill_null(float('nan')).to_numpy()
+    valid = np.isfinite(values) & (values == np.floor(values))
+    values = np.where(valid, values, -1)
     labels=np.full(len(values),'Other',dtype='U5')
     assigned=np.zeros(len(values),bool)
     for name,ranges in groups:
@@ -283,7 +284,7 @@ class RiskSource(MonthlySource):
         self.exposures={}
     def load_exposures(self,d):
         if d in self.exposures: return self.exposures[d]
-        raw=self.connection.compile(self.table.filter(self.table.eom==d)).collect(engine='streaming')
+        raw=self.load_raw(d)
         frame=prepare_pred_data(raw,self.features,min_obs=10).join(self.sic.filter(pl.col('eom')==d),on=['id','eom']).sort('id')
         values=frame.select(self.features).to_numpy()
         mean=values.mean(axis=0); sd=values.std(axis=0,ddof=1) if len(values)>1 else np.zeros(values.shape[1])

@@ -105,7 +105,7 @@ class RiskPreprocessingSource(MonthlySource):
         self.stream = BenchmarkNormalStream(seed); self.last_noise_month = None
 
     def _one_month(self,d):
-        raw = self.connection.compile(self.table.filter(self.table.eom==d)).collect(engine='streaming').sort(['id','eom'])
+        raw = self.load_raw(d).sort(['id','eom'])
         sic = self.sic.filter(pl.col('eom')==d).collect(engine='streaming')
         raw = raw.join(sic,on=['id','eom']).sort(['id','eom'])
         if self.variant in ('country_median','industry_median'):

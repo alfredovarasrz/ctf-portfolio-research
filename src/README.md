@@ -1,11 +1,13 @@
 # Shared scientific source code
 
-`src` means source code. These 29 Python files contain the data transformations, forecasting models, risk estimators, historical parameter-selection procedures and portfolio calculations used by the experiments. They are unchanged snapshots of the current scientific code from the private research archive.
+`src` means source code. These Python files contain the data transformations, forecasting models, risk estimators, historical parameter-selection procedures and portfolio calculations used by the experiments. The original scientific implementations have been adapted for public execution. File hashes and original snapshot hashes are recorded in [source-index.json](source-index.json).
 
 Experiment folders link to the principal files for their methods. Common calculations remain here so multiple experiments can use one implementation.
 
 | File | Role |
 | --- | --- |
+| [artifact_utils.py](artifact_utils.py) | Writing JSON records and hashing generated research files. |
+| [experiment_io.py](experiment_io.py) | Reading the three supplied tables, setting the thread limit and saving local performance results. |
 | [baseline.py](baseline.py) | Monthly predictor preprocessing, historical stock Ridge fitting and decile allocation. |
 | [batch_allocations.py](batch_allocations.py) | Industry-neutral optimization and the regular C02 diagonal-penalty allocation with historical payoff-bank selection. |
 | [batch_forecasts.py](batch_forecasts.py) | Broad historical stock Ridge penalty search. |
@@ -36,10 +38,14 @@ Experiment folders link to the principal files for their methods. Common calcula
 | [tuned_factor_forecast_paths.py](tuned_factor_forecast_paths.py) | P07/P08 factor forecasts based on the tuned R01 daily factor stream. |
 | [tuned_risk_decay.py](tuned_risk_decay.py) | Historical selection of hyperbolic correlation or variance decay within a rolling window. |
 
-## Preparation status
+## Dependencies and execution
 
-This source tree is not yet independently runnable. Some modules import scientific functions from local runners that also contain private execution machinery. Those dependencies must be separated when preparing the public entry points. The remaining imports and snapshot hashes are listed in [source-index.json](source-index.json). These research snapshots also need version reconciliation with each completed run before they form a complete reproduction package.
+All local Python imports resolve within this folder. Monthly filtering uses Polars directly. No Ibis, private runner, scheduler or private verification receipt is required. The research dependencies are pinned in [requirements-research.txt](../requirements-research.txt), separately from the selected contest model's requirements.
 
-Historical parameter validation is part of the models and remains included. Correctness tests, numerical verifiers, fixtures, operational schedulers and monitoring helpers are excluded.
+The source retains historical model tuning and the input, date and array checks needed by its calculations. Optional generated artifacts carry input/settings identities so a resumed run cannot silently use another model's cache. These local research outputs are created by the public code; they are not files that must be obtained from the private research archive.
 
-The selected strategy's self-contained contest entry point and pinned dependencies are available in [submission/](../submission/README.md). They do not depend on these research snapshots. The final [PDF write-up](../submission/Alfredo%20Vara%20-%20PS3.pdf) is in the submission folder.
+The inherited expanding forecasts and factor XGBoost read original annual tree settings from a locally generated benchmark `forecast_fits.json`. They do not read the private diagnostic proofs or result-acceptance records. The annual training-date and candidate-selection checks remain.
+
+Eight experiment entry points are available: P01, P02, T03, T04, T07, H01, V01 and P08_C021_R08V1. See [the reproduction instructions](../README.md#reproduction). Other experiment entry points remain to be packaged; completing the shared import graph does not make every experiment executable end to end. The saved results were not regenerated during this cleanup. Per-run source-version reconciliation for the remaining entry points is still pending.
+
+Correctness tests, numerical verifiers, fixtures, schedulers and monitoring helpers are excluded from the public tree. The selected strategy's [self-contained contest model](../submission/model.py) has its own pinned requirements and does not import this folder.

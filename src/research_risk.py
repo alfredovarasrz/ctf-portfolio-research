@@ -58,7 +58,6 @@ def _manifest(chars, daily_ret, names, settings, identity, source_factory, daily
                                 source=source_factory.__qualname__, daily=daily_factory.__qualname__,
                                 numpy=np.__version__, polars=pl.__version__,
                                 scipy=version('scipy'), threadpoolctl=version('threadpoolctl'),
-                                ibis=version('ibis-framework'),
                                 units='daily covariance; preceding-month exposures')))
 
 

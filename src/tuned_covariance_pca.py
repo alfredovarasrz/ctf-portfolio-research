@@ -12,7 +12,7 @@ from threadpoolctl import threadpool_limits
 from batch_risk import pca_factor_covariance
 from comparison_models import RISK_SETTINGS
 from extended_risk import _parent_months, _factor_stream, covariance_with_weights
-from research_resources import write_json
+from artifact_utils import write_json
 
 PCA_GRID = (.5, .7, .9, .95)
 
@@ -121,7 +121,7 @@ def select_retained_variance(values, dates, cutoff, settings=RISK_SETTINGS, *, c
 
 def _selection_identity(values, dates, cutoff, names, settings, candidates, identity):
     sources = ('tuned_covariance_pca.py', 'batch_risk.py', 'comparison_models.py',
-               'extended_risk.py', 'research_resources.py')
+               'extended_risk.py', 'artifact_utils.py')
     base = Path(__file__).resolve().parent
     return dict(experiment='R04_TUNED', caller=identity, cutoff=str(cutoff), factor_order=names,
         settings=asdict(settings), candidates=list(candidates),

@@ -18,7 +18,7 @@ Recorded producer-stage elapsed time. This may reuse earlier forecasts or risk e
 
 ## Code used by this experiment
 
-These are the principal implementation files currently staged for this experiment. Shared preprocessing, benchmark risk and performance calculations also use [baseline.py](../../src/baseline.py), [comparison_models.py](../../src/comparison_models.py) and [evaluate_baseline.py](../../src/evaluate_baseline.py), as applicable. The full standalone execution package is still being prepared; remaining private-runner imports are listed in [the source index](../../src/source-index.json).
+These are the principal implementation files currently staged for this experiment. Shared preprocessing, benchmark risk and performance calculations also use [baseline.py](../../src/baseline.py), [comparison_models.py](../../src/comparison_models.py) and [evaluate_baseline.py](../../src/evaluate_baseline.py), as applicable. All shared Python dependencies are packaged in `src`; [the source index](../../src/source-index.json) records the import graph and source hashes.
 
 - [batch_forecasts.py](../../src/batch_forecasts.py): Broad historical stock Ridge penalty search.
 - [ridge_path.py](../../src/ridge_path.py): Efficient evaluation of ordinary Ridge coefficient paths.
@@ -35,4 +35,14 @@ Historical model-parameter validation remains part of the scientific implementat
 - Full 408-month backtest, with gross returns before trading costs. Historical selections use only labels complete by actual formation; test-period performance does not select parameters.
 - Ordinary Ridge uses n*lambda and an unpenalized intercept. Dense numerical coverage is not statistical precision.
 
-Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Per-experiment source-version reconciliation and execution packaging remain pending in this initial research publication.
+Configuration choices were informed by previously observed evaluation-period results. These results do not constitute a genuinely unseen holdout or establish future performance. Entry-point packaging and per-run source-version reconciliation remain pending where not identified below.
+
+## Running this experiment
+
+The local entry point is [code/run.py](code/run.py). From the repository root:
+
+```sh
+python experiments/H01/code/run.py --data /path/to/ctf-tables --output /path/to/new-results --threads 10
+```
+
+The data folder must contain `ctff_chars.parquet`, `ctff_features.parquet` and `ctff_daily_ret.parquet`. Install [the research requirements](../../requirements-research.txt) first. The script fits from the supplied tables, constructs monthly weights, and then evaluates them using subsequent returns. It does not require old private forecasts, caches or verification files. Use a separate output directory for each experiment. Generated outputs are not automatically published.

@@ -62,7 +62,7 @@ class MedianSource(MonthlySource):
         path = self.prepared / (str(formation_date) + '.parquet') if self.prepared is not None else None
         if path is not None and path.exists():
             return pl.read_parquet(path)
-        raw = self.connection.compile(self.table.filter(self.table.eom == formation_date)).collect(engine='streaming')
+        raw = self.load_raw(formation_date)
         if self.sic is not None:
             sic = self.sic.filter(pl.col('eom') == formation_date).collect(engine='streaming')
             raw = raw.join(sic, on=['id', 'eom'])

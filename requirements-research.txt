@@ -1,0 +1,12 @@
+# Python 3.13. Local research code only; submission has its own requirements.
+numpy==2.5.3
+pandas==3.0.6
+polars==1.44.2
+polars-runtime-32==1.44.2
+pyarrow==25.0.1
+scipy==1.18.1
+threadpoolctl==3.7.0
+xgboost==3.4.1
+python-dateutil==2.9.0.post0
+six==1.17.0
+tzdata==2026.5

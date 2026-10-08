@@ -2,7 +2,6 @@
 from bisect import bisect_right
 from calendar import monthrange
 from datetime import date
-import hashlib
 import json
 from pathlib import Path
 
@@ -12,7 +11,7 @@ from threadpoolctl import threadpool_limits
 from comparison_models import RISK_SETTINGS
 from extended_risk import _parent_months, _factor_stream
 from tuned_risk_decay import decay_factor_covariance
-from research_resources import write_json
+from artifact_utils import write_json
 
 VARIANTS = {'R07': None,
     'R08_EXPANDING_CORRELATION': 'correlation',
@@ -163,7 +162,7 @@ def select_expanding_decay(values, dates, settings=RISK_SETTINGS, *, component):
 
 def factor_prefix_receipt(root, cutoff):
     """Actual consumed factor bytes, including pre1980, excluding future bodies."""
-    from run_extended_portfolios import digest
+    from artifact_utils import digest
     root=Path(root); manifest=json.loads((root/'manifest.json').read_text()); files={}
     months=[]
     for folder in sorted((root/'months').iterdir()):
@@ -183,7 +182,7 @@ def factor_prefix_receipt(root, cutoff):
 
 
 def annual_expanding_decay(root, cache, d, values, dates, settings, component, identity):
-    from run_extended_portfolios import digest
+    from artifact_utils import digest
     cache=Path(cache); cache.mkdir(parents=True,exist_ok=True); year=d.year+int(d.month==12)
     wanted=dict(component=component,forecast_year=year,information_cutoff=str(d),
         source_sha256=digest(Path(__file__)),decay_math_sha256=digest(Path(__file__).with_name('tuned_risk_decay.py')),

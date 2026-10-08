@@ -11,7 +11,6 @@ from dataclasses import dataclass
 from datetime import date
 from time import perf_counter
 
-import ibis
 import numpy as np
 import pandas as pd
 import polars as pl
@@ -137,15 +136,13 @@ def sufficient_stats(data: pl.DataFrame, features: list[str]) -> SufficientStats
 
 
 class MonthlySource:
-    """Ibis selects dates/columns; its Polars backend compiles to a lazy plan."""
+    """Materialize one monthly cross-section and cache its training statistics."""
     def __init__(self, chars, features, cache_size=144):
         self.features = features
-        self.connection = ibis.polars.connect({"chars": canonical_chars(chars, features)})
-        self.table = self.connection.table("chars")
+        self.frame = canonical_chars(chars, features)
         self.cache_size = cache_size
         self.stats_cache = OrderedDict()
-        plan = self.connection.compile(self.table.select(*META))
-        self.metadata = plan.collect(engine="streaming").sort(["eom", "id"])
+        self.metadata = self.frame.select(META).collect(engine="streaming").sort(["eom", "id"])
         required = self.metadata.select("id", "eom", "eom_ret", "excntry", "ctff_test")
         if required.null_count().to_numpy().sum():
             raise ValueError("Missing identifiers, dates, countries, or invalid test flags")
@@ -161,10 +158,11 @@ class MonthlySource:
             self.metadata.select("eom_ret", "eom").unique().iter_rows()
         )
 
+    def load_raw(self, formation_date: date) -> pl.DataFrame:
+        return self.frame.filter(pl.col("eom") == formation_date).collect(engine="streaming")
+
     def load(self, formation_date: date) -> pl.DataFrame:
-        expression = self.table.filter(self.table.eom == formation_date)
-        plan = self.connection.compile(expression)
-        return prepare_pred_data(plan.collect(engine="streaming"), self.features)
+        return prepare_pred_data(self.load_raw(formation_date), self.features)
 
     def stats(self, return_date: date) -> SufficientStats:
         if return_date in self.stats_cache:

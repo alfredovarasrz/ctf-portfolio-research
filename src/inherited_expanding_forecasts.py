@@ -18,12 +18,9 @@ from expanding_forecasts import (SPECIFICATIONS as ORIGINAL_SPECIFICATIONS, comp
     fit_expanding, month_prediction, check_model_bundle)
 from extended_forecasts import _load_anchor, _save_anchor
 from research_forecasts import _checkpoint_directory, _write_json
-from run_extended_portfolios import digest
+from artifact_utils import digest
 
 BASE=Path(__file__).resolve().parent
-DIAGNOSTIC_PROOF_SHA256='7c59e0be327117a66c3eb16cf70f9b5e62132392c7e02053487dfcb891545c2a'
-DIAGNOSTIC_SUMMARY_SHA256='23977811b7eaa7507d328c3c730e84c5bcfa7bbc1f3728c1995a66b00a10fad8'
-EXPANDING_SOURCE_SHA256='faef935cb3b3291da5b09ccc0b6e845be495d47d101bb6c215e22498a4e16c55'
 BASE_VARIANTS={'P04_INHERITED':'P04','P05_EXPANDING_INHERITED':'P05_EXPANDING'}
 SPECIFICATIONS={key:dict(ORIGINAL_SPECIFICATIONS[value],
     tree_configuration='exact original P01 annual selected parameter record',
@@ -32,7 +29,7 @@ SPECIFICATIONS={key:dict(ORIGINAL_SPECIFICATIONS[value],
     parent_annual_booster_models_persisted=False) for key,value in BASE_VARIANTS.items()}
 SOURCE_FILES=('inherited_expanding_forecasts.py','expanding_forecasts.py',
     'capped_calendar_validation.py','baseline.py','comparison_models.py',
-    'extended_forecasts.py','research_forecasts.py','run_extended_portfolios.py')
+    'extended_forecasts.py','research_forecasts.py','artifact_utils.py')
 
 
 def fit_digest(value):
@@ -73,75 +70,28 @@ def original_annual_selection(row,settings):
         parent_fit_sha256=fit_digest(row))
 
 
-def parent_selection_contract(parent_path,parent,parent_files,settings=FORECAST_SETTINGS,*,diagnostic=False):
-    """Read actual original selection records. No annual parent Booster exists."""
-    parent_path=Path(parent_path)
-    cache=Path(parent['artifact_paths']['forecasts'])
-    cache=(cache if cache.is_absolute() else BASE/cache)/'xgboost/xgboost'
-    marker=json.loads((cache/'blocked-fit.json').read_text())
-    rows=json.loads((parent_path/'forecast_fits.json').read_text())['xgboost']
-    identity=marker['identity']
-    if (marker['fits']!=rows or identity['settings']!=parent['forecast_settings']
-            or identity['inputs']!=parent['inputs']
-            or identity['inputs']['validation_policy']!='historical_blocked'
-            or identity['inputs']['sample'] is not diagnostic
-            or any(identity['source_sha256'][name]!=parent['source_sha256'][name]
-                for name in ('baseline.py','comparison_models.py','research_forecasts.py'))):
-        raise ValueError('Original blocked cache and output selections disagree')
-    selections=[original_annual_selection(row,settings) for row in rows]
-    if not selections or len({r['first_test_return'] for r in selections})!=len(selections):
-        raise ValueError('Missing or duplicate original annual anchors')
-    if any(month_number(date.fromisoformat(b['first_test_return']))-month_number(date.fromisoformat(a['first_test_return']))!=settings.chunk_months
-            for a,b in zip(selections,selections[1:])):
-        raise ValueError('Original annual chunk coverage changed')
-    if digest(parent_path/'xgboost_predictions.parquet')!=digest(cache/'blocked-predictions.parquet'):
-        raise ValueError('Original blocked prediction bytes disagree with published stream')
-    files={name:digest(parent_path/name) for name in ('summary.json','forecast_fits.json')}
-    if files['summary.json']!=parent_files['summary.json'] or files['forecast_fits.json']!=parent_files['forecast_fits.json']:
-        raise ValueError('Original output receipt changed during selection read')
-    if diagnostic:
-        proof_path=BASE/'checkpoints/blocked-cv-restoration-v1/verification.json'
-        summary_path=proof_path.with_name('summary.json')
-        proof=json.loads(proof_path.read_text())
-        if (digest(proof_path)!=DIAGNOSTIC_PROOF_SHA256 or files['summary.json']!=DIAGNOSTIC_SUMMARY_SHA256
-                or digest(summary_path)!=files['summary.json'] or proof.get('scope')!='real_correctness_diagnostic_only'
-                or proof.get('actual_outer_cutoff_audit_passed') is not True
-                or proof.get('input_stocks')!=100 or proof.get('input_months')!=123
-                or proof.get('features')!=402 or proof.get('weights_per_model')!=300 or proof.get('xgboost_candidates')!=20 or proof.get('output_months')!=3
-                or proof.get('xgboost_prediction_maximum_difference')!=0
-                or proof.get('weight_maximum_difference_from_original_benchmark_sample',{}).get('factor_ml')!=0
-                or proof.get('weight_maximum_difference_from_original_benchmark_sample',{}).get('markowitz_ml')!=0):
-            raise ValueError('Exact original restored sample parity proof required')
-    else:
-        proof_path=parent_path/'verification.json'
-        proof=json.loads(proof_path.read_text())
-        if (proof.get('status')!='verified' or proof.get('full_results') is not True
-                or proof.get('summary_sha256')!=files['summary.json']):
-            raise ValueError('Original full proof does not bind current summary')
-        files['verification.json']=digest(proof_path)
-    return dict(path=str(parent_path.resolve()),files_sha256=files,
-        proof=dict(path=str(proof_path.resolve()),sha256=digest(proof_path)),
-        blocked_cache=dict(path=str(cache.resolve()),files_sha256={name:digest(cache/name)
-            for name in ('blocked-fit.json','blocked-predictions.parquet')}),
-        annual_selections=selections,parent_annual_booster_models_persisted=False)
+def parent_selection_contract(parent_path, settings=FORECAST_SETTINGS):
+    """Use annual tree choices from a locally generated benchmark fit record."""
+    path = Path(parent_path) / 'forecast_fits.json'
+    rows = json.loads(path.read_text())['xgboost']
+    selections = [original_annual_selection(row, settings) for row in rows]
+    anchors = [date.fromisoformat(row['first_test_return']) for row in selections]
+    if not anchors or any(month_number(b) - month_number(a) != settings.chunk_months
+                          for a, b in zip(anchors, anchors[1:])):
+        raise ValueError('Original annual fit records need consecutive twelve-month anchors')
+    return dict(path=str(path.parent.resolve()), files_sha256={path.name: digest(path)},
+                annual_selections=selections, parent_annual_booster_models_persisted=False)
 
 
 def check_parent_receipt(receipt):
-    """Rebind consumed original bytes immediately before any annual cache load."""
-    for key in ('files_sha256','blocked_cache'):
-        if key not in receipt:raise ValueError('Authenticated original receipt required')
-    for name,value in receipt['files_sha256'].items():
-        if digest(Path(receipt['path'])/name)!=value:raise ValueError('Original output selection bytes changed')
-    for name,value in receipt['blocked_cache']['files_sha256'].items():
-        if digest(Path(receipt['blocked_cache']['path'])/name)!=value:raise ValueError('Original blocked selection bytes changed')
-    if digest(receipt['proof']['path'])!=receipt['proof']['sha256']:
-        raise ValueError('Original selection proof bytes changed')
+    """Prevent changing the annual parameter file during an inherited fit."""
+    for name, value in receipt['files_sha256'].items():
+        if digest(Path(receipt['path']) / name) != value:
+            raise ValueError('Original annual parameter file changed during fitting')
 
 
 def inherited_expanding_forecast_returns(chars,features,variant,settings=FORECAST_SETTINGS,
         source_factory=MonthlySource,*,parent_selections,checkpoint_dir=None,identity=None):
-    if digest(BASE/'expanding_forecasts.py')!=EXPANDING_SOURCE_SHA256:
-        raise ValueError('Frozen expanding training engine changed')
     if variant not in SPECIFICATIONS or settings.folds!=5 or settings.chunk_months!=12:
         raise ValueError('Only inherited original annual expanding specifications supported')
     if checkpoint_dir is not None and identity is None:raise ValueError('Explicit inherited input identity required')

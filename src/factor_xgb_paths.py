@@ -1,12 +1,12 @@
 """P09 joint factor XGBoost. Original P08 coordinates, timing and stock loss."""
-from dataclasses import asdict
-from datetime import date
 from hashlib import sha256
 import json
 from pathlib import Path
+
 from time import perf_counter
 
-BASE=Path(__file__).resolve().parent
+from artifact_utils import digest
+
 EXPERIMENT='P09_FACTOR_XGB'
 SPECIFICATION=dict(factor_stream='original daily Barra coefficients',monthly_target='SUM',lag_months=1,
     train_months=120,folds=5,annual_chunk_months=12,factor_basis='original12industries+402characteristics',
@@ -15,13 +15,6 @@ SPECIFICATION=dict(factor_stream='original daily Barra coefficients',monthly_tar
     early_stopping=25,maximum_rounds_ceiling=1000,seed=1,base_score=0,full_search20='deferred',
     final_trees='floor mean earliest best mapped-stock round across usable folds; at least1',
     training_units='original monthly coefficient sums; no standardization/PCA',validation_policy='historical_blocked')
-
-
-def digest(path):
-    h=sha256()
-    with Path(path).open('rb') as stream:
-        for block in iter(lambda:stream.read(1048576),b''):h.update(block)
-    return h.hexdigest()
 
 
 def canonical_digest(value):
@@ -157,7 +150,7 @@ def forecast_xgb_family(chars,names,risk,checkpoint,identity,parent_selections,s
     from comparison_models import INDUSTRIES
     from factor_forecast_paths import monthly_targets,ActualStockLabels
     from inherited_expanding_forecasts import check_parent_receipt
-    from research_resources import write_json
+    from artifact_utils import write_json
     from extended_risk import _factor_stream
     source=MonthlySource(chars,names);metadata=source.metadata
     tests=sorted(metadata.filter(pl.col('ctff_test'))['eom_ret'].unique().to_list())

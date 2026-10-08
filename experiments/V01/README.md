@@ -18,7 +18,7 @@ Recorded producer time: 2556.590 seconds. Recorded historical producer-stage tim
 
 ## Code used by this experiment
 
-These are the principal implementation files currently staged for this experiment. Shared preprocessing, benchmark risk and performance calculations also use [baseline.py](../../src/baseline.py), [comparison_models.py](../../src/comparison_models.py) and [evaluate_baseline.py](../../src/evaluate_baseline.py), as applicable. The full standalone execution package is still being prepared; remaining private-runner imports are listed in [the source index](../../src/source-index.json).
+These are the principal implementation files currently staged for this experiment. Shared preprocessing, benchmark risk and performance calculations also use [baseline.py](../../src/baseline.py), [comparison_models.py](../../src/comparison_models.py) and [evaluate_baseline.py](../../src/evaluate_baseline.py), as applicable. All shared Python dependencies are packaged in `src`; [the source index](../../src/source-index.json) records the import graph and source hashes.
 
 - [research_forecasts.py](../../src/research_forecasts.py): Forward-only historical forecast fitting for the archived V01 comparison.
 - [baseline.py](../../src/baseline.py): Monthly predictor preprocessing, historical stock Ridge fitting and decile allocation.
@@ -27,3 +27,13 @@ These are the principal implementation files currently staged for this experimen
 Historical model-parameter validation remains part of the scientific implementation. Separate correctness checks, numerical verifiers and operational schedulers are excluded.
 
 Results cover 1990–2023 and exclude costs. This archived comparison is outside the 41-package standalone roster and is presented separately. Retrospective configuration selection does not constitute an unseen holdout.
+
+## Running this experiment
+
+The local entry point is [code/run.py](code/run.py). From the repository root:
+
+```sh
+python experiments/V01/code/run.py --data /path/to/ctf-tables --output /path/to/new-results --threads 10
+```
+
+The data folder must contain `ctff_chars.parquet`, `ctff_features.parquet` and `ctff_daily_ret.parquet`. Install [the research requirements](../../requirements-research.txt) first. The script fits from the supplied tables, constructs monthly weights, and then evaluates them using subsequent returns. It does not require old private forecasts, caches or verification files. Use a separate output directory for each experiment. Generated outputs are not automatically published.

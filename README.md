@@ -6,7 +6,7 @@
 
 This repository contains research for the Common Task Framework portfolio-model competition hosted on the Global Factor Data (JKP Factors) website. The competition runs submitted models on a common stock dataset and evaluates the portfolio weights they produce. Our objective is to study how return forecasting, risk estimation and portfolio construction affect historical performance, then provide a reproducible implementation and methodology paper for the selected strategy.
 
-This initial publication includes the self-contained final model, the final PDF write-up, saved experiment results and shared research source snapshots. The final model can run independently. Individual experiment execution packages are still being cleaned and assembled; the shared source tree should currently be read as research material.
+This repository includes the self-contained final model, final PDF write-up, saved results and shared scientific code with complete local dependencies. Eight experiment folders have runnable local entry points. The remaining entry points are being assembled.
 
 The research follows the competition host's supplied R implementations of Minimum Variance, Factor ML and Markowitz ML, translated into Python. Ridge Markowitz adapts the supplied Markowitz allocation to stock-level Ridge forecasts. Only the permitted stock-characteristic, feature-list and daily-return tables enter the models. Historical performance is evaluated from January 1990 through December 2023, with earlier available data used for estimation. The input `ctff_test` flags determine the evaluation observations; the final model must not assume that every future dataset has the same dates.
 
@@ -45,7 +45,7 @@ The selected strategy is **P08-only + C02 regular + R08 expanding variance**, sa
 
 | Path | What it contains |
 | --- | --- |
-| [experiments/](results/README.md) | One folder per experiment, containing its README and compact `results.json`; runnable experiment code will be packaged in each experiment's `code/` subfolder |
+| [experiments/](results/README.md) | One folder per experiment, containing its README and compact `results.json`; available entry points are in each experiment's `code/` subfolder; the reproduction section lists their status |
 | [src/](src/README.md) | Shared Python source code for model calculations, historical parameter selection and performance measurement |
 | [results/](results/README.md) | Consolidated saved results, including [the portfolio CSV](results/portfolio_results.csv) and experiment JSON |
 | [submission/](submission/README.md) | The selected strategy's self-contained [model.py](submission/model.py), pinned dependencies and verified [final portfolio weights CSV](submission/weights.csv) |
@@ -64,23 +64,48 @@ so users can compare results without opening every experiment folder.
 
 ### What shared source code means
 
-`src` is short for source code. It contains 29 Python files with the calculations used across the experiments. For example, `baseline.py` prepares stock predictors and fits the original Ridge model; `comparison_models.py` supplies the original XGBoost and Barra-style risk calculations; and `factor_forecast_paths.py` implements the P07/P08 factor forecasts. These are code files, not fitted models, saved forecasts or additional experiments.
+`src` is short for source code. It contains 31 Python files: the 29 scientific modules and two small input/output utilities. For example, `baseline.py` prepares stock predictors and fits the original Ridge model; `comparison_models.py` supplies the original XGBoost and Barra-style risk calculations; and `factor_forecast_paths.py` implements the P07/P08 factor forecasts. These are code files, not fitted models, saved forecasts or additional experiments.
 
-Several experiments use the same underlying calculations. Keeping those functions in one shared place avoids maintaining a different copy in every experiment folder. Each experiment README links to its principal source files and explains their roles. The [source README](src/README.md) gives a complete file guide. Some original runners still combine scientific calculations with private execution machinery; separating those dependencies into simple runnable entry points remains part of preparation.
+Several experiments use the same underlying calculations. Keeping those functions in one shared place avoids maintaining a different copy in every experiment folder. Each experiment README links to its principal source files and explains their roles. The [source README](src/README.md) gives a complete file guide. The shared files no longer import private execution code. Each available run script calls these functions directly; the remaining experiment entry points are still being packaged.
 
 ### The submission code
 
 `submission/` contains the selected strategy's self-contained [model.py](submission/model.py), its pinned [requirements.txt](submission/requirements.txt) and an execution guide. Every scientific function needed by the selected model is inside that one Python file. It calculates forecasts, risk and monthly weights from the three supplied tables and returns `id`, `eom`, `w`. It imports no local experiment or shared-source files and reads no old fitted artifacts. A fresh full-period run matched all 885,698 accepted weights exactly, including a byte-identical weights CSV. Historical parameter selection remains in the file; full-period performance evaluation remains outside it. Competition acceptance has not yet been obtained.
 
-## Rules, data and reproduction
+## Reproduction
 
-Everything prepared for the contest must follow the [official contest rules](https://jkpfactors.com/ctf/rules). Only the three supplied tables may enter the model. At each portfolio formation date, all inputs and training/validation labels used in that weight calculation must already be available. The submitted model must rebalance monthly, be deterministic, cover the supplied `ctff_test` keys and satisfy the required interface, dependency and resource limits.
+Use Python 3.13. Install the local research dependencies:
 
-Historical hyperparameter validation remains in the model code. P08's forecast-penalty selection, R08's decay selection and C02's historical payoff-bank selection define the strategy. These are separate from auxiliary tests and numerical verifiers used privately to check implementation correctness. Those correctness-checking files are excluded from this repository.
+```sh
+python -m pip install -r requirements-research.txt
+```
 
-Users must obtain data through the official data-access process. Raw data, transformed panels, fitted caches, logs and credentials are not distributed here. The original research archive remains private. Unfinished original full-search P04/P05 drafts are not presented as completed experiments; the completed inherited variants have separate folders.
+Research imports require NumPy, Pandas, Polars, PyArrow, SciPy, threadpoolctl and XGBoost, plus their pinned supporting dependencies. Ibis and DuckDB are no longer needed by the public code. Obtain the three permitted CTF tables through the data-access instructions above; raw data are not included in this repository.
 
-The current source snapshots use NumPy/SciPy, Polars, Ibis/DuckDB and XGBoost where applicable. Runnable research entry points, experiment-specific dependency pins and source-version reconciliation are still being prepared. Reproduction commands will be added when those entry points are complete. This initial publication holds 45 completed experiment packages plus one archived completed comparison, 138 scalar portfolio-result rows and 29 unchanged source snapshots. The selected contest model has its own pinned dependencies and does not use Ibis or the shared source tree. GitHub publication is separate from contest submission; no contest upload or acceptance is claimed.
+The following entry points are packaged:
+
+| Experiment | Run script | What it runs |
+| --- | --- | --- |
+| Original benchmark comparison (P01) | [run.py](experiments/P01/code/run.py) | Ridge/XGBoost deciles and Markowitz portfolios, plus Minimum Variance |
+| Equal forecast average (P02) | [run.py](experiments/P02/code/run.py) | A 50/50 Ridge/XGBoost forecast, with decile and Markowitz allocations |
+| Ranked forecast scores (T03) | [run.py](experiments/T03/code/run.py) | Original forecasts converted into percentile scores before allocation |
+| Country median predictors (T04) | [run.py](experiments/T04/code/run.py) | Both forecast models with country/month median filling |
+| Industry median predictors (T07) | [run.py](experiments/T07/code/run.py) | Both forecast models with industry-aware median filling |
+| Dense Ridge search (H01) | [run.py](experiments/H01/code/run.py) | Historically tuned dense stock Ridge forecasts |
+| Forward-only comparison (V01) | [run.py](experiments/V01/code/run.py) | Both forecast models with forward-only historical folds |
+| Selected combined model (P08_C021_R08V1) | [run.py](experiments/P08_C021_R08V1/code/run.py) | The exact self-contained final model followed by local performance evaluation |
+
+For example, from the repository root:
+
+```sh
+python experiments/P01/code/run.py --data /path/to/ctf-tables --output /path/to/new-results --threads 10
+```
+
+Each run reads the supplied tables and fits its own models. Use a separate output directory for each experiment. Within a run, risk estimates are shared across applicable portfolios. Local research scripts save weights, monthly performance and fitting records; optional generated risk artifacts support later method variants. These files remain outside the public Git history. The scripts use the input `ctff_test` flags rather than hardcoding 1990–2023.
+
+The current shared import graph is complete and can be loaded without the private research repository. The remaining experiment entry points and their saved-run source reconciliation are still being prepared. Existing results cover 46 experiment folders and 138 scalar portfolio records. This cleanup does not claim fresh full-period reproduction of every result.
+
+The contest entry point is [submission/model.py](submission/model.py), with [its separate requirements](submission/requirements.txt). It receives the three Pandas tables and returns weights. Only that self-contained script is prepared for contest execution. The research scripts' local file reading, caching and performance evaluation are not part of the contest entry point. See the [official rules](https://jkpfactors.com/ctf/rules). No contest upload or acceptance is claimed.
 
 ## Interpretation
 

@@ -5,6 +5,8 @@ from hashlib import sha256
 import json
 from pathlib import Path
 
+from artifact_utils import digest
+
 CANDIDATES=('E08_C021_R08V1','P08_C021_R08V1')
 FIRST=date(1990,1,31)
 LAST=date(2023,12,31)
@@ -27,13 +29,6 @@ def expected_return_dates(stage):
     if stage not in ('diagnostic','full'):raise ValueError('Explicit diagnostic/full stage required')
     count=3 if stage=='diagnostic' else 408
     return [date(1990+i//12,i%12+1,monthrange(1990+i//12,i%12+1)[1]) for i in range(count)]
-
-
-def digest(path):
-    h=sha256()
-    with Path(path).open('rb') as stream:
-        for block in iter(lambda:stream.read(1048576),b''):h.update(block)
-    return h.hexdigest()
 
 
 def canonical_digest(value):
@@ -65,7 +60,7 @@ def annual_stock_forecasts(source,names,tests,kind,root,identity,forecast_settin
     from baseline import month_number,train_ridge
     from comparison_models import training_folds
     from research_forecasts import _xgb_fit
-    from research_resources import write_json
+    from artifact_utils import write_json
     root=Path(root);root.mkdir(parents=True,exist_ok=True);frames=[];records=[]
     for start in range(0,len(tests),12):
         chunk=tests[start:start+12];first=chunk[0];cutoff=source.return_to_formation[first]
@@ -151,7 +146,7 @@ def allocate_candidate(risks,predictions,metadata,root,identity,settings,*,c02):
     import polars as pl
     from batch_allocations import Q_GRID,select_penalty,_realized_labels
     from comparison_models import portfolio_variance
-    from research_resources import write_json
+    from artifact_utils import write_json
     root=Path(root);root.mkdir(parents=True,exist_ok=True);frames=[];records=[];bank=[];history=[];selections={}
     for marker in sorted(root.glob('*/complete.json')):
         saved=json.loads(marker.read_text())
